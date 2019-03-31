@@ -44,11 +44,14 @@ public class PromoDescuentos {
 
 		//System.out.println("HTML" +page.asXml());
 
-		List<HtmlElement> items = (List<HtmlElement>) page.getByXPath("//article");  
+		List<?> items = page.getByXPath("//article");  
 		if(items.isEmpty()){  
   			System.out.println("No items found !");
 		}else{
-		for(HtmlElement htmlItem : items){  
+		for(Object  obj : items){  
+
+		  HtmlElement htmlItem = (HtmlElement) obj; 
+
 
 		  JSONObject itemJson = new JSONObject();
 

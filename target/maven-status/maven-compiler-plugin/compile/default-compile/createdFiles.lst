@@ -2,6 +2,7 @@ com/supermarket/Soriana.class
 com/aws/Configuration.class
 com/supermarket/Sams.class
 com/supermarket/BestBuy.class
+com/supermarket/FarmaciasDelAhorro.class
 com/supermarket/Sears.class
 com/supermarket/Sanborns.class
 com/supermarket/OfficeDepot.class

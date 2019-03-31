@@ -43,11 +43,12 @@ public class Soriana {
 
 		//System.out.println("HTML" +page.asXml());
 
-		List<HtmlElement> items = (List<HtmlElement>) page.getByXPath("//div[@class='product-item']");  
+		List<?> items = page.getByXPath("//div[@class='product-item']");  
 		if(items.isEmpty()){  
   			System.out.println("No items found !");
 		}else{
-		for(HtmlElement htmlItem : items){  
+		for(Object  obj : items){  
+		  HtmlElement htmlItem = (HtmlElement) obj; 
 
 		  JSONObject itemJson = new JSONObject();
 

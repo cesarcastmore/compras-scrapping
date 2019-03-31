@@ -2,10 +2,11 @@
     "body-json": {},
     "params": {
         "path": {
-            "cadena": "promodescuentos"
+            "cadena": "farmacias_del_ahorro"
         },
         "querystring": {
-            "page": 1
+            "page": 1, 
+            "value": "aspirinas"
         },
         "header": {
             "accept": "application/json, text/plain, */*",

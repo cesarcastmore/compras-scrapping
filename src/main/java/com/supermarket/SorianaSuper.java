@@ -41,11 +41,11 @@ public class SorianaSuper {
 
 		System.out.println("HTML" +page.asXml());
 
-		List<HtmlElement> items = (List<HtmlElement>) page.getByXPath("//div[@class='col-lg-3 col-md-4 col-sm-12 col-xs-12 product-item']");  
+		List<?> items =  page.getByXPath("//div[@class='col-lg-3 col-md-4 col-sm-12 col-xs-12 product-item']");  
 		if(items.isEmpty()){  
   			System.out.println("No items found !");
 		}else{
-		for(HtmlElement htmlItem : items){  
+		for(Object  obj : items){  
 
 
 		  /*HtmlElement itemAddress =  ((HtmlElement) htmlItem.getElementsByTagName("a").item(0));
@@ -55,6 +55,8 @@ public class SorianaSuper {
 	
 
 		  listJson.add(itemJson);*/
+		  
+		  HtmlElement htmlItem = (HtmlElement) obj; 
 
 		  System.out.println(htmlItem.asXml());
 

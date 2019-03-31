@@ -44,11 +44,13 @@ public class BestBuy {
 
 		//System.out.println("HTML" +page.asXml());
 
-		List<HtmlElement> items = (List<HtmlElement>) page.getByXPath("//div[@class='product-line-item-line']");  
+		List<?> items =  page.getByXPath("//div[@class='product-line-item-line']");  
 		if(items.isEmpty()){  
   			System.out.println("No items found !");
 		}else{
-		for(HtmlElement htmlItem : items){  
+		for(Object  obj : items){  
+			
+		  HtmlElement htmlItem = (HtmlElement) obj; 
 
 		  JSONObject itemJson = new JSONObject();
 

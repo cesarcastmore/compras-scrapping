@@ -23,6 +23,7 @@ import com.supermarket.BestBuy;
 import com.supermarket.OfficeDepot;
 import com.supermarket.Sams;
 import com.supermarket.PromoDescuentos;
+import com.supermarket.FarmaciasDelAhorro;
 
 public  class Configuration {
 
@@ -94,6 +95,11 @@ public  class Configuration {
             }else if(cadena.equals("promodescuentos")){
 
                 PromoDescuentos pd = new PromoDescuentos();
+                res = pd.search(search, page.intValue());
+
+            }else if(cadena.equals("farmacias_del_ahorro")){
+
+                FarmaciasDelAhorro pd = new FarmaciasDelAhorro();
                 res = pd.search(search, page.intValue());
 
             }

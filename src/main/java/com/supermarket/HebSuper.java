@@ -38,12 +38,13 @@ public class HebSuper {
   			e.printStackTrace();
 		}
 
-		List<HtmlElement> items = (List<HtmlElement>) page.getByXPath("//li[@class='item last ']");  
+		List<?> items = page.getByXPath("//li[@class='item last ']");  
 		if(items.isEmpty()){  
   			System.out.println("No items found !");
 		}else{
-		for(HtmlElement htmlItem : items){  
+		for(Object  obj : items){  
 
+		  HtmlElement htmlItem = (HtmlElement) obj; 
 
 		  HtmlElement itemAddress =  ((HtmlElement) htmlItem.getElementsByTagName("a").item(0));
 		  String info = itemAddress.getAttribute("href");
@@ -80,10 +81,12 @@ public class HebSuper {
 		res.put("results", listJson);
 
 		//Sacar el total
-		items = (List<HtmlElement>) page.getByXPath("//span[@class='catalog-qty']");  
-		HtmlElement htmlTotal = items.get(0);
+		/*items =  page.getByXPath("//span[@class='catalog-qty']");  
+		Object obj= items.get(0);
+		HtmlElement htmlTotal = (HtmlElement) obj;
+		htmlTotal = items.get(0);
 		String total= htmlTotal.asText();
-		res.put("total", total);
+		res.put("total", total);*/
 
 
 		return res;

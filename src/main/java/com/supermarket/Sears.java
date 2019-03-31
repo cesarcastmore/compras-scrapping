@@ -13,10 +13,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import java.util.List;
 import java.math.BigDecimal;
+import java.util.Base64;
 
 public class Sears {
 
-	public static String url="https://www.sears.com.mx/buscar/?c=";
+	public static String url="https://www.sears.com.mx/buscador/";
 	public static String PAGE="https://www.sears.com.mx";
 
 	public Sears(){
@@ -34,7 +35,11 @@ public class Sears {
 
 		HtmlPage page= null; 
 		try {  
-  			String searchUrl = url  + URLEncoder.encode(searchQuery, "UTF-8") + "&p=" + pageNum;
+			byte[] encodedBytes = Base64.getEncoder().encode(searchQuery.getBytes());
+			String searchQueryBase64  = new String(encodedBytes);
+
+  			String searchUrl = url  + searchQueryBase64 + "/" + pageNum + "/";
+
   			System.out.println(searchUrl);
 
   			page = client.getPage(searchUrl);
@@ -44,11 +49,12 @@ public class Sears {
 
 		//System.out.println("HTML" +page.asXml());
 
-		List<HtmlElement> items = (List<HtmlElement>) page.getByXPath("//div[@class='producto col-xl-3 col-md-4 col-sm-12 mb-4']");  
+		List<?> items = page.getByXPath("//article[@class='productbox']");  
 		if(items.isEmpty()){  
   			System.out.println("No items found !");
 		}else{
-		for(HtmlElement htmlItem : items){  
+		for(Object  obj : items){  
+		  HtmlElement htmlItem = (HtmlElement) obj; 
 
 		  JSONObject itemJson = new JSONObject();
 		  HtmlElement htmlAddress=  htmlItem.getFirstByXPath(".//a");
@@ -56,19 +62,22 @@ public class Sears {
 		  itemJson.put("enlace_informacion", PAGE + info);
 		  itemJson.put("cadena", "sears");
 
-		  HtmlElement htmlImg=  htmlAddress.getFirstByXPath(".//img");
+		  HtmlElement htmlImg=  htmlItem.getFirstByXPath(".//img");
+		  System.out.println(htmlImg.asXml());
 		  String srcImage = htmlImg.getAttribute("src");
 		  String title = htmlImg.getAttribute("title");
 		  itemJson.put("imagen", srcImage);
 		  itemJson.put("titulo", title);
 
-		  HtmlElement precioHtml=  htmlItem.getFirstByXPath(".//p[@class='precio_venta']");
+		  HtmlElement precioHtml=  htmlItem.getFirstByXPath(".//span[@class='preciodesc']");
 		  String precio = precioHtml.asText();
 		  precio=precio.replace("Precio Internet: $", "");
 		  precio=precio.replace("Oferta en Tienda: $", "");
 		  precio=precio.replace("Precio en Tienda: $", "");
+		  precio=precio.replace("Precio Tienda: $", "");
 		  precio=precio.replace(",", "");
 		  precio = precio.trim();
+		  System.out.println("PRECIO" + precio);
 		  BigDecimal precioBD = new BigDecimal(precio);
 
 		  itemJson.put("precio", precioBD.toString());
