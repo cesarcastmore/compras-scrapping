@@ -37,6 +37,7 @@ public class Soriana {
   			System.out.println(searchUrl);
 
   			page = client.getPage(searchUrl);
+  			
 		} catch(Exception e){
   			e.printStackTrace();
 		}

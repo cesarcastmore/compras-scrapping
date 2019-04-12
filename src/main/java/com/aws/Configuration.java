@@ -24,6 +24,9 @@ import com.supermarket.OfficeDepot;
 import com.supermarket.Sams;
 import com.supermarket.PromoDescuentos;
 import com.supermarket.FarmaciasDelAhorro;
+import com.supermarket.WalMart;
+import com.supermarket.Famsa;
+import com.supermarket.HomeDepot;
 
 public  class Configuration {
 
@@ -102,7 +105,23 @@ public  class Configuration {
                 FarmaciasDelAhorro pd = new FarmaciasDelAhorro();
                 res = pd.search(search, page.intValue());
 
+            }else if(cadena.equals("walmart")){
+
+                WalMart pd = new WalMart();
+                res = pd.search(search, page.intValue());
+
+            }else if(cadena.equals("famsa")){
+
+                Famsa pd = new Famsa();
+                res = pd.search(search, page.intValue());
+
+            }else if(cadena.equals("home_depot")){
+
+                HomeDepot pd = new HomeDepot();
+                res = pd.search(search, page.intValue());
+
             }
+
             outputStream.write(res.toJSONString().getBytes(Charset.forName("UTF-8")));
             outputStream.close();
 

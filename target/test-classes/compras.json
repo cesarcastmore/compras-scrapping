@@ -6,7 +6,7 @@
         },
         "querystring": {
             "page": 1, 
-            "value": "aspirinas"
+            "value": "aspirina"
         },
         "header": {
             "accept": "application/json, text/plain, */*",

@@ -120,6 +120,7 @@ public class Liverpool {
 
 			  	if(precioOriginal != null){
 			  		precioOriginal= precioOriginal.replace(",", "");
+			  		precioOriginal= precioOriginal.replace("$", "");
 			  		precioOriginal= precioOriginal.trim();
 			  	 	BigDecimal pr = new BigDecimal(precioOriginal);
 			  	 	pr = pr.divide(new BigDecimal(100));
@@ -134,6 +135,7 @@ public class Liverpool {
 		  	String precio = htmlPrecio.asText();
 		  	 if(precio != null){
 		  	 	precio= precio.replace(",", "");
+		  	 	precioOriginal= precioOriginal.replace("$", "");
 		  		precio= precio.trim();
 		  	 	BigDecimal pr = new BigDecimal(precio);
 		  	 	pr = pr.divide(new BigDecimal(100));
@@ -142,6 +144,7 @@ public class Liverpool {
 		  } else {
 		  	if(precioOriginal != null){
 		  		precioOriginal= precioOriginal.replace(",", "");
+		  		precioOriginal= precioOriginal.replace("$", "");
 		  		precioOriginal= precioOriginal.trim();
 		  	 	BigDecimal pr = new BigDecimal(precioOriginal);
 		  	 	pr = pr.divide(new BigDecimal(100));

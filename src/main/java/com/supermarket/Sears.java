@@ -65,8 +65,10 @@ public class Sears {
 		  HtmlElement htmlImg=  htmlItem.getFirstByXPath(".//img");
 		  System.out.println(htmlImg.asXml());
 		  String srcImage = htmlImg.getAttribute("src");
-		  String title = htmlImg.getAttribute("title");
 		  itemJson.put("imagen", srcImage);
+
+		  HtmlElement titleHtml=  htmlItem.getFirstByXPath(".//p");
+		  String title = titleHtml.asXml();
 		  itemJson.put("titulo", title);
 
 		  HtmlElement precioHtml=  htmlItem.getFirstByXPath(".//span[@class='preciodesc']");
@@ -81,11 +83,6 @@ public class Sears {
 		  BigDecimal precioBD = new BigDecimal(precio);
 
 		  itemJson.put("precio", precioBD.toString());
-
-		  //System.out.println(htmlAddress.asXml());
-
-		  
-
 
 		 // HtmlElement itemPrice =  htmlItem.getFirstByXPath(".//span[@class='sale-original-price']");  
 		  listJson.add(itemJson);
