@@ -4,6 +4,7 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
+import java.io.IOException;
 import java.net.URLEncoder;
 
 import com.gargoylesoftware.htmlunit.WebClient;
@@ -26,26 +27,31 @@ public class Famsa {
 	}
 
 
-	public JSONObject search(String searchQuery, Integer pageNum) throws Exception {
+	public JSONObject search(String searchQuery, Integer numPage) {
 
-		WebClient client = new WebClient(BrowserVersion.CHROME);  
+		WebClient client = new WebClient(BrowserVersion.BEST_SUPPORTED);  
 		client.getOptions().setCssEnabled(true);  
 		client.getOptions().setJavaScriptEnabled(true); 
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		client.getOptions().setThrowExceptionOnScriptError(false);
-            client.setRefreshHandler(new ThreadedRefreshHandler());
+		client.setRefreshHandler(new ThreadedRefreshHandler());
+		client.setJavaScriptTimeout(40000);
 
 		JSONArray listJson = new JSONArray();
 		String total ="0";
 
-		HtmlPage page= null; 
-		try {  
-  			String searchUrl = url  + searchQuery+ "#" + pageNum;
-  			System.out.println(searchUrl);
+		HtmlPage page= null;
 
-  			page = client.getPage(searchUrl);
-		} catch(Exception e){
-  			e.printStackTrace();
+		try {
+			String searchUrl = url + URLEncoder.encode(searchQuery, "UTF-8") +"#"+ numPage;
+			System.out.println(searchUrl);
+			page = client.getPage(searchUrl);
+
+			Thread.sleep(20000);
+
+			System.out.println(page.asXml());
+		} catch (IOException | InterruptedException e) {
+			e.printStackTrace();
 		}
 
 		addItems("//li[@class='item col-xs-12 col-sm-6 col-md-4 col-lg-4']", listJson, page);

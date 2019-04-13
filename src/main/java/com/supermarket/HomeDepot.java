@@ -1,5 +1,7 @@
 package com.supermarket;
 
+import java.util.Set;
+
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
@@ -13,6 +15,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.TextPage;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
+import com.gargoylesoftware.htmlunit.CookieManager;
+import com.gargoylesoftware.htmlunit.util.Cookie;
+import com.gargoylesoftware.htmlunit.ProxyConfig;
+import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
+
 
 //import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
@@ -26,7 +33,7 @@ import com.http.Response;
 
 public class HomeDepot {
 
-	public static String url="https://www.homedepot.com.mx/SearchDisplay?sType=SimpleSearch&resultCatEntryType=2&showResultsPage=true&searchSource=Q&beginIndex=0&pageSize=20&searchTerm=";
+	public static String url = " https://www.homedepot.com.mx/SearchDisplay?searchTerm=";
 	public static String PAGE="https://www.homedepot.com.mx";
 
 	public HomeDepot(){
@@ -40,29 +47,35 @@ public class HomeDepot {
 		JSONArray listJson = new JSONArray();
 		String total ="0";
 
-  		String searchUrl = url  + URLEncoder.encode(searchQuery, "UTF-8") + "&p=" + pageNum;
+  		String searchUrl = "https://www.homedepot.com.mx/SearchDisplay?searchTerm=" + searchQuery;
 
-  		WebClient client = new WebClient(BrowserVersion.FIREFOX_60);  
-		client.getOptions().setCssEnabled(false);  
-		client.getOptions().setJavaScriptEnabled(false); 
+  		WebClient client = new WebClient(BrowserVersion.CHROME);  
+			client.getOptions().setCssEnabled(true);
+		client.getOptions().setJavaScriptEnabled(true);
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
-		client.getCookieManager().setCookiesEnabled(true); 
-
+		client.getOptions().setThrowExceptionOnScriptError(false);
+		client.setRefreshHandler(new ThreadedRefreshHandler());
 
 		HtmlPage page= null; 
 		try {  
   			System.out.println(searchUrl);
 
+
   			page = client.getPage(searchUrl);
+  			Thread.sleep(5000);
+
+
+  			System.out.println("HTML" +page.asXml());
+
 		} catch(Exception e){
   			e.printStackTrace();
 		}
 
 		
 		JSONObject res= new JSONObject();
+		addItems("div[@class='product']", listJson, page);
 
-	
-
+		res.put("results", listJson);
 		return res;
 
 	}
@@ -93,6 +106,24 @@ public class HomeDepot {
   		HtmlElement imagenHtml = (HtmlElement) htmlItem.getFirstByXPath(".//img");  
   		String imagen = imagenHtml.getAttribute("src");
 		itemJson.put("imagen", imagen);
+
+
+
+  		HtmlElement linkHtml = (HtmlElement) htmlItem.getFirstByXPath(".//a");  
+  		String link = imagenHtml.getAttribute("href");
+  		String title = imagenHtml.getAttribute("title");
+		itemJson.put("enlace_informacion", link);
+		itemJson.put("titulo", title);
+
+		HtmlElement skuHtml = (HtmlElement) htmlItem.getFirstByXPath(".//span[@class='sku']");  
+		String sku= skuHtml.asText();
+		itemJson.put("sku", sku);
+
+		HtmlElement priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//span[@itemprop='price']");  
+		String price= skuHtml.asText();
+		itemJson.put("precio", price);
+
+
 
 		return itemJson;
 	}

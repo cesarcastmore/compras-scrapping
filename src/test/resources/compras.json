@@ -2,11 +2,11 @@
     "body-json": {},
     "params": {
         "path": {
-            "cadena": "farmacias_del_ahorro"
+            "cadena": "home_depot"
         },
         "querystring": {
             "page": 1, 
-            "value": "aspirina"
+            "value": "martillo"
         },
         "header": {
             "accept": "application/json, text/plain, */*",
