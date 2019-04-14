@@ -73,7 +73,7 @@ public class WalMart {
 				JSONObject o = (JSONObject) json.get(x);
 
 				JSONObject itemJson= new JSONObject();
-				itemJson.put("cadena", "walmart");
+				itemJson.put("cadena", "WalMart");
 				itemJson.put("precio",o.get("price") );
 				itemJson.put("imagen", o.get("image"));
 				itemJson.put("enlace_informacion", o.get("href"));

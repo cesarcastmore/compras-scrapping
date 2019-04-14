@@ -137,6 +137,7 @@ public class HomeDepot {
 		price= price.replace("$", "").trim();
 		price= price.substring(0, price.length() - 2);
 		itemJson.put("precio", price);
+		itemJson.put("cadena", "HomeDepot");
 
 
 
