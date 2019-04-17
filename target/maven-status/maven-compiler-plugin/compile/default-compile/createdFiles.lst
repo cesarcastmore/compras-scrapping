@@ -1,6 +1,8 @@
 com/supermarket/HomeDepot.class
+com/supermarket/Pcel.class
 com/supermarket/Famsa.class
 com/http/ConnectionException.class
+com/supermarket/Costco.class
 com/supermarket/FarmaciasDelAhorro.class
 com/supermarket/Sears.class
 com/supermarket/Sanborns.class
@@ -8,6 +10,7 @@ com/supermarket/PromoDescuentos.class
 com/supermarket/Soriana.class
 com/aws/Configuration.class
 com/supermarket/Sams.class
+com/supermarket/Coppel.class
 com/supermarket/BestBuy.class
 com/http/Connection.class
 com/http/Request.class

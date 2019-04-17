@@ -68,7 +68,7 @@ public class Sears {
 		  itemJson.put("imagen", srcImage);
 
 		  HtmlElement titleHtml=  htmlItem.getFirstByXPath(".//p");
-		  String title = titleHtml.asXml();
+		  String title = titleHtml.asText();
 		  itemJson.put("titulo", title);
 
 		  HtmlElement precioHtml=  htmlItem.getFirstByXPath(".//span[@class='preciodesc']");

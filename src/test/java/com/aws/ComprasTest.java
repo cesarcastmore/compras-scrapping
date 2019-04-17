@@ -40,9 +40,8 @@ public class ComprasTest {
             conf= new Configuration();
 
 		} catch(Exception ex){
-                          ex.printStackTrace(); 
-
-    		  Assert.fail("Error: No se pudo inicializar");
+            ex.printStackTrace(); 
+    		Assert.fail("Error: No se pudo inicializar");
 		}
 
 
@@ -56,9 +55,6 @@ public class ComprasTest {
     		conf.execute(input, baos, null);
             System.out.println("out" + baos.toString());
     		JSONObject json = (JSONObject) new JSONParser().parse( baos.toString());
-
-    
-   
 
     	} catch(Exception ex){
 

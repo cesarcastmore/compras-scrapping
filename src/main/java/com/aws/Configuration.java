@@ -13,20 +13,7 @@ import java.nio.charset.Charset;
 
 import com.amazonaws.services.lambda.runtime.Context;
 
-import com.supermarket.HebSuper;
-import com.supermarket.SorianaSuper;
-import com.supermarket.Soriana;
-import com.supermarket.Liverpool;
-import com.supermarket.Sears;
-import com.supermarket.Sanborns;
-import com.supermarket.BestBuy;
-import com.supermarket.OfficeDepot;
-import com.supermarket.Sams;
-import com.supermarket.PromoDescuentos;
-import com.supermarket.FarmaciasDelAhorro;
-import com.supermarket.WalMart;
-import com.supermarket.Famsa;
-import com.supermarket.HomeDepot;
+import com.supermarket.*;
 
 public  class Configuration {
 
@@ -120,7 +107,17 @@ public  class Configuration {
                 HomeDepot pd = new HomeDepot();
                 res = pd.search(search, page.intValue());
 
+            }else if(cadena.equals("pcel")){
+                Pcel pd = new Pcel();
+                res = pd.search(search, page.intValue());
+            }else if(cadena.equals("costco")){
+                Costco pd = new Costco();
+                res = pd.search(search, page.intValue());
+            }else if(cadena.equals("coppel")){
+                Coppel pd = new Coppel();
+                res = pd.search(search, page.intValue());
             }
+
 
             outputStream.write(res.toJSONString().getBytes(Charset.forName("UTF-8")));
             outputStream.close();
