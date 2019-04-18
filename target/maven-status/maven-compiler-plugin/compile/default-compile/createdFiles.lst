@@ -1,5 +1,6 @@
 com/supermarket/HomeDepot.class
 com/supermarket/Pcel.class
+com/supermarket/SuperWalMart.class
 com/supermarket/Famsa.class
 com/http/ConnectionException.class
 com/supermarket/Costco.class

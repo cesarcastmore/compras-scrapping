@@ -2,11 +2,11 @@
     "body-json": {},
     "params": {
         "path": {
-            "cadena": "costco"
+            "cadena": "super_walmart"
         },
         "querystring": {
             "page": 1, 
-            "value": "pastel"
+            "value": "zucaritas"
         },
         "header": {
             "accept": "application/json, text/plain, */*",

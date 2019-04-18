@@ -116,7 +116,11 @@ public  class Configuration {
             }else if(cadena.equals("coppel")){
                 Coppel pd = new Coppel();
                 res = pd.search(search, page.intValue());
+            }else if(cadena.equals("super_walmart")){
+                SuperWalMart pd = new SuperWalMart();
+                res = pd.search(search, page.intValue());
             }
+
 
 
             outputStream.write(res.toJSONString().getBytes(Charset.forName("UTF-8")));
