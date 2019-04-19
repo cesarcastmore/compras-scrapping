@@ -22,7 +22,6 @@ import java.math.BigDecimal;
 
 public class Coppel {
 
-	public static String url="https://www.coppel.com/";
 	public static String PAGE="https://pcel.com";
 
 	public Coppel(){
@@ -34,7 +33,7 @@ public class Coppel {
 
 		WebClient client = new WebClient(BrowserVersion.FIREFOX_60);  
 		client.getOptions().setCssEnabled(false);  
-		client.getOptions().setJavaScriptEnabled(true); 
+		client.getOptions().setJavaScriptEnabled(false); 
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		client.getOptions().setThrowExceptionOnScriptError(false);
             client.setRefreshHandler(new ThreadedRefreshHandler());
@@ -42,28 +41,20 @@ public class Coppel {
 		JSONArray listJson = new JSONArray();
 		String total ="0";
 
-		HtmlPage page1= null; 
+		HtmlPage page= null; 
 		try {  
-  			String searchUrl = url  + URLEncoder.encode(searchQuery, "UTF-8");
-  			//System.out.println(searchUrl);
+  			String searchUrl = "https://www.coppel.com/ProductListingView?searchType=1001&filterTerm=&langId=-5&advancedSearch=&sType=SimpleSearch&gridPosition=&metaData=&manufacturer=&ajaxStoreImageDir=https%3A%2F%2Fcdn2.coppel.com%2Fwcsstore%2FAuroraStorefrontAssetStore%2F&resultCatEntryType=2&catalogId=10001&searchTerm=" +  URLEncoder.encode(searchQuery, "UTF-8") + "&resultsPerPage=12&emsName=&facet=&categoryId=&storeId=12757&disableProductCompare=false&ddkey=ProductListingView_6_1120&filterFacet=";
 
-  			page1 = client.getPage(searchUrl);
+  			page = client.getPage(searchUrl);
+
 		} catch(Exception e){
   			e.printStackTrace();
 		}
 
 
 		//System.out.println("HTML" + page.asXml());
-		HtmlForm form = (HtmlForm) page1.getFormByName("CatalogSearchForm");
-		HtmlInput searchTerm = form.getInputByName("searchTerm");
-		searchTerm.setValueAttribute(searchQuery);
-		HtmlButton button = form.getFirstByXPath(".//div[@class='submitButton input-group-btn']/button");
 
-		HtmlPage page2 = button.click();
-
-		System.out.println("HTML 1 "+ page2.asXml());
-
-		//addItems("//li[@class='product-item vline  ']", listJson, page);
+		addItems("//ul[@class='grid_mode grid']/li", listJson, page);
 
 		//HtmlElement totalHtml =  page.getFirstByXPath(".//p[@class='results-count']"); 
 		//total = totalHtml.asText();
@@ -101,15 +92,15 @@ public class Coppel {
 	public JSONObject createItem(Object  obj){
 		HtmlElement htmlItem = (HtmlElement) obj; 
 
-		//System.out.println("HTML" + htmlItem.asXml());
+		System.out.println("HTML" + htmlItem.asXml());
 
 		JSONObject itemJson = new JSONObject();
-  		HtmlElement enlaceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//div[@class='product-image ']/a");  
+  		HtmlElement enlaceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//div[@class='product_name']/a");  
 
 		String enlace = enlaceHtml.getAttribute("href");
 		itemJson.put("enlace_informacion", enlace);
 
-		HtmlElement imagenHtml = (HtmlElement) enlaceHtml.getFirstByXPath(".//img");  
+		/*HtmlElement imagenHtml = (HtmlElement) enlaceHtml.getFirstByXPath(".//img");  
 		String imagen = imagenHtml.getAttribute("src");
 		itemJson.put("imagen", imagen);
 
@@ -124,7 +115,7 @@ public class Coppel {
 		String price = priceHtml.asText();
   		price= price.replace("$", "");
   		price= price.replace(",", "");
-		itemJson.put("precio", price);
+		itemJson.put("precio", price);*/
 
 
 		

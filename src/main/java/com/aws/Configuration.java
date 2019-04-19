@@ -42,7 +42,7 @@ public  class Configuration {
                 HebSuper heb = new HebSuper();
                 res = heb.search(search, page.intValue());
 
-            }else if(cadena.equals("soriana_super")){
+            }else if(cadena.equals("super_soriana")){
 
                 SorianaSuper soriana = new SorianaSuper();
                 res = soriana.search(search, page.intValue());

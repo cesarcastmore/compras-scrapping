@@ -24,7 +24,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class SuperWalMart {
 
 	public static String url="https://www.walmart.com.mx/productos?Ntt=";
-	public static String PAGE="https://www.walmart.com.mx/productos?Ntt=";
+	public static String PAGE="https://super.walmart.com.mx";
 
 	public SuperWalMart(){
 
@@ -48,7 +48,7 @@ public class SuperWalMart {
 
 			HtmlPage page = client.getPage(url);
 
-			page.executeJavaScript("fetch(\"https://super.walmart.com.mx/productos?Ntt=" + URLEncoder.encode(searchQuery, "UTF-8") + "&Nrpp=24&No=0\", {\"credentials\":\"omit\",\"headers\":{\"accept\":\"application/json\",\"content-type\":\"application/json\"},\"referrer\":\"https://super.walmart.com.mx/productos?Ntt=martillo\",\"referrerPolicy\":\"no-referrer-when-downgrade\",\"body\":null,\"method\":\"GET\",\"mode\":\"cors\"}).then(function(response) {\n" +
+			page.executeJavaScript("fetch(\"https://super.walmart.com.mx/api/wmx/search?Ntt=" + URLEncoder.encode(searchQuery, "UTF-8") + "&Nrpp=24&No=0\", {\"credentials\":\"omit\",\"headers\":{\"accept\":\"application/json\",\"content-type\":\"application/json\"},\"referrer\":\"https://super.walmart.com.mx/api/wmx/search?Ntt=martillo\",\"referrerPolicy\":\"no-referrer-when-downgrade\",\"body\":null,\"method\":\"GET\",\"mode\":\"cors\"}).then(function(response) {\n" +
 					"    return response.json();\n" +
 					"  })\n" +
 					"  .then(function(myJson) {\n" +
@@ -62,29 +62,72 @@ public class SuperWalMart {
 					"a = b;\n" +
 					"  });");
 
-			Thread.sleep(7000);
+			Thread.sleep(10000);
 
 			ScriptResult r = page.executeJavaScript("JSON.stringify(a)");
 
 			JSONParser parser = new JSONParser();
-			System.out.println((String) r.getJavaScriptResult());
-			JSONArray json = (JSONArray) parser.parse(((String) r.getJavaScriptResult()));
+			String jsonString= (String) r.getJavaScriptResult();
+			System.out.println(jsonString);
+			JSONObject json = (JSONObject) parser.parse(jsonString);
+			JSONArray contents = (JSONArray) json.get("contents");
+			//System.out.println(contents.toJSONString());
 
-			for (int x = 0; x < json.size(); x++){
-				JSONObject o = (JSONObject) json.get(x);
+			JSONObject content = (JSONObject) contents.get(0);
+			//System.out.println(content.toJSONString());
+
+			JSONArray mainArea = (JSONArray) content.get("mainArea");
+			JSONObject area = (JSONObject) mainArea.get(1);
+			JSONArray records = (JSONArray) area.get("records");
+
+			System.out.println(records.toJSONString());
+
+
+
+			for (int x = 0; x < records.size(); x++){
+				JSONObject o = (JSONObject) records.get(x);
+				JSONObject attributes= (JSONObject) o.get("attributes");
+				System.out.println(attributes.toJSONString());
+
 
 				JSONObject itemJson= new JSONObject();
-				itemJson.put("cadena", "WalMart");
-				itemJson.put("precio",o.get("price") );
-				itemJson.put("imagen", o.get("image"));
+				itemJson.put("cadena", "SuperWalMart");
+
+				JSONArray attr = (JSONArray) attributes.get("sku.price");
+				String precio = (String) attr.get(0);
+				itemJson.put("precio", precio);
+
+				attr = (JSONArray) attributes.get("product.seoURL");
+				String enlace_informacion = (String) attr.get(0);
+				itemJson.put("enlace_informacion", PAGE + enlace_informacion );
+
+				attr = (JSONArray) attributes.get("skuDisplayName");
+				String titulo = (String) attr.get(0);
+				itemJson.put("titulo",titulo );	
+
+
+				if(attributes.containsKey("product.smallImage.url")){
+					attr = (JSONArray) attributes.get("product.smallImage.url");
+					String imagen = (String) attr.get(0);
+					itemJson.put("imagen", PAGE + imagen );
+				}
+
+
+
+
+
+				/*itemJson.put("precio", o.get("image"));
 				itemJson.put("enlace_informacion", o.get("href"));
-				itemJson.put("titulo", o.get("name"));
+				itemJson.put("titulo", o.get("name"));*/
 				listJson.add(itemJson);
 
 			}
 
 		} catch (IOException | InterruptedException | ParseException e) {
 			e.printStackTrace();
+			
+			JSONObject res= new JSONObject();
+			res.put("results", listJson);
 		}
 
 		//addItems("//div[@class='_1ZplxGlyCnvyO0gMSgUv3h _3pbbScAH_l-HkRL05mtPvP _37wpYTs0if2wh2mOPy3Pzb oe1yn7YsSprw1BNeuteLa _20uJJOKj_YzI06TzrVkyR4 _1i1_-U8qaR8cJPVpbFp2z-']", listJson, page);
