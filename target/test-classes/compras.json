@@ -2,11 +2,11 @@
     "body-json": {},
     "params": {
         "path": {
-            "cadena": "super_soriana"
+            "cadena": "officedepot"
         },
         "querystring": {
             "page": 1, 
-            "value": "azucar"
+            "value": "pantalla"
         },
         "header": {
             "accept": "application/json, text/plain, */*",

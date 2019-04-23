@@ -55,12 +55,18 @@ public class OfficeDepot {
 		  JSONObject itemJson = new JSONObject();
 
 
-		  HtmlElement textHtml =  htmlItem.getFirstByXPath(".//a[@class='name description-style ']"); 
-		  String enlace_informacion = textHtml.getAttribute("href"); 
+		  HtmlElement titleHtml =  htmlItem.getFirstByXPath(".//div[@class='name description-style']"); 
+		  String titulo = titleHtml.asText();
+		  itemJson.put("titulo", titulo);
+
+
+		  HtmlElement linkHtml =  htmlItem.getFirstByXPath(".//a[@class='thumb picture-product']"); 
+		  String enlace_informacion = linkHtml.getAttribute("href");
 		  itemJson.put("enlace_informacion", PAGE + enlace_informacion);
 
-		  String titulo = textHtml.asText();
-		  itemJson.put("titulo", titulo);
+		  HtmlElement imgHtml =  linkHtml.getFirstByXPath(".//img");
+		  String imagen = imgHtml.getAttribute("src");
+		  itemJson.put("imagen", PAGE + imagen);
 
 
 		  HtmlElement priceHtml =  htmlItem.getFirstByXPath(".//div[@class='price']");
@@ -77,16 +83,7 @@ public class OfficeDepot {
 		  	price= price.trim();
 		  }
 		  itemJson.put("precio", price);
-
-		  HtmlElement imgHtml =  htmlItem.getFirstByXPath(".//img");
-		  System.out.println(imgHtml.asXml());
-		  String imagen = imgHtml.getAttribute("data-src"); 
-		  itemJson.put("imagen", PAGE + imagen);
 		  itemJson.put("cadena", "officedepot");
-
-		  HtmlElement skuHtml =  htmlItem.getFirstByXPath(".//span[@class='name-add'][2]");
-		  String sku = skuHtml.asText();
-		  itemJson.put("sku", sku);
 
 
 		  listJson.add(itemJson);

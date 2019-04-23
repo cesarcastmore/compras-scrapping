@@ -119,7 +119,11 @@ public  class Configuration {
             }else if(cadena.equals("super_walmart")){
                 SuperWalMart pd = new SuperWalMart();
                 res = pd.search(search, page.intValue());
+            }else if(cadena.equals("alsuper")){
+                AlSuper pd = new AlSuper();
+                res = pd.search(search, page.intValue());
             }
+
 
 
 
