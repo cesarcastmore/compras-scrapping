@@ -17,9 +17,13 @@ import com.supermarket.*;
 
 public  class Configuration {
 
-  public void execute(InputStream inputStream, OutputStream outputStream, Context ctt) throws Exception
+    public void execute(InputStream inputStream, OutputStream outputStream, Context ctt) throws Exception{
+        String requestString = toString(inputStream);
+        execute(requestString, outputStream, ctt);
+    }
+
+  public void execute(String requestString, OutputStream outputStream, Context ctt) throws Exception
 	{
-	    String requestString = toString(inputStream);
         JSONParser parser = new JSONParser();
         JSONObject jsonRequest = (JSONObject) parser.parse(requestString);
 
@@ -108,20 +112,35 @@ public  class Configuration {
                 res = pd.search(search, page.intValue());
 
             }else if(cadena.equals("pcel")){
+
                 Pcel pd = new Pcel();
                 res = pd.search(search, page.intValue());
+
             }else if(cadena.equals("costco")){
+
                 Costco pd = new Costco();
                 res = pd.search(search, page.intValue());
+
             }else if(cadena.equals("coppel")){
+
                 Coppel pd = new Coppel();
                 res = pd.search(search, page.intValue());
+
             }else if(cadena.equals("super_walmart")){
+
                 SuperWalMart pd = new SuperWalMart();
                 res = pd.search(search, page.intValue());
+
             }else if(cadena.equals("alsuper")){
+
                 AlSuper pd = new AlSuper();
                 res = pd.search(search, page.intValue());
+
+            }else if(cadena.equals("officemax")){
+
+                OfficeMax pd = new OfficeMax();
+                res = pd.search(search, page.intValue());
+
             }
 
 
@@ -139,7 +158,7 @@ public  class Configuration {
 	}
 
 
-	private String toString(InputStream in) throws Exception
+	public String toString(InputStream in) throws Exception
     {
         StringBuilder sb = new StringBuilder();
         BufferedReader br = new BufferedReader(new InputStreamReader(in));

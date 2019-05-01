@@ -60,7 +60,7 @@ public class FarmaciasDelAhorro {
 
 		res.put("results", listJson);
 		//res.put("total", total);
-		System.out.println(res.toJSONString());
+		//System.out.println(res.toJSONString());
 
 		return res;
 
@@ -71,7 +71,8 @@ public class FarmaciasDelAhorro {
 
 		List<?> items = page.getByXPath(value);  
 		if(items.isEmpty()){  
-  			System.out.println("No items found !");
+  			
+  			//System.out.println("No items found !");
 		}else{
 			for(Object  obj : items){  
 			  JSONObject itemJson = createItem(obj);

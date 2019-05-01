@@ -43,7 +43,7 @@ public class Sams {
   			e.printStackTrace();
 		}
 
-		System.out.println("HTML" +page.asXml());
+		//System.out.println("HTML" +page.asXml());
 
 		List<?> items =  page.getByXPath("//div[@class='product-listing  desktop']");  
 		if(items.isEmpty()){  
@@ -54,7 +54,7 @@ public class Sams {
 		  HtmlElement htmlItem = (HtmlElement) obj; 
 
 		  JSONObject itemJson = new JSONObject();
-		  System.out.println("1");
+		  //System.out.println("1");
 
 
 		  listJson.add(itemJson);

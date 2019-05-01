@@ -63,7 +63,7 @@ public class Sears {
 		  itemJson.put("cadena", "sears");
 
 		  HtmlElement htmlImg=  htmlItem.getFirstByXPath(".//img");
-		  System.out.println(htmlImg.asXml());
+		  //System.out.println(htmlImg.asXml());
 		  String srcImage = htmlImg.getAttribute("src");
 		  itemJson.put("imagen", srcImage);
 
@@ -79,7 +79,7 @@ public class Sears {
 		  precio=precio.replace("Precio Tienda: $", "");
 		  precio=precio.replace(",", "");
 		  precio = precio.trim();
-		  System.out.println("PRECIO" + precio);
+		  //System.out.println("PRECIO" + precio);
 		  BigDecimal precioBD = new BigDecimal(precio);
 
 		  itemJson.put("precio", precioBD.toString());

@@ -73,7 +73,7 @@ public class Liverpool {
 		  if(htmlPrecioEsp != null){
 		  	HtmlElement htmlPrecioOrig=   htmlPrecioEsp.getFirstByXPath(".//span[@class='price-amount']");
 
-		  	System.out.println(htmlPrecioOrig.asXml());
+		  	//System.out.println(htmlPrecioOrig.asXml());
 
 		  	precioOriginal = htmlPrecioOrig.asText();
 
@@ -114,7 +114,7 @@ public class Liverpool {
 			  if(htmlPrecioEsp != null){
 			  	HtmlElement htmlPrecioOrig=   htmlPrecioEsp.getFirstByXPath(".//span[@class='price-amount']");
 
-			  	System.out.println(htmlPrecioOrig.asXml());
+			  	//System.out.println(htmlPrecioOrig.asXml());
 
 			  	precioOriginal = htmlPrecioOrig.asText();
 

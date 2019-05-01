@@ -42,7 +42,7 @@ public class BestBuy {
   			e.printStackTrace();
 		}
 
-		System.out.println("HTML" +page.asXml());
+		//System.out.println("HTML" +page.asXml());
 
 		List<?> items =  page.getByXPath("//div[@class='product-line-item-line']");  
 		if(items.isEmpty()){  

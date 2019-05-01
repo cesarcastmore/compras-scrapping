@@ -97,7 +97,7 @@ public class WalMart {
 		//res.put("total", total);
 
 
-		System.out.println(res.toJSONString());
+		//System.out.println(res.toJSONString());
 
 		return res;
 

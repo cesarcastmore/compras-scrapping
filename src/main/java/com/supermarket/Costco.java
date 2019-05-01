@@ -58,7 +58,7 @@ public class Costco {
 
 		res.put("results", listJson);
 		//res.put("total", total);
-		System.out.println(res.toJSONString());
+		//System.out.println(res.toJSONString());
 
 		return res;
 
@@ -86,7 +86,7 @@ public class Costco {
 	public JSONObject createItem(Object  obj){
 		HtmlElement htmlItem = (HtmlElement) obj; 
 
-		System.out.println("HTML" + htmlItem.asXml());
+		//System.out.println("HTML" + htmlItem.asXml());
 
 		JSONObject itemJson = new JSONObject();
   		HtmlElement enlaceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//div[@class='product-image ']/a");  

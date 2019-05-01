@@ -68,7 +68,7 @@ public class SuperWalMart {
 
 			JSONParser parser = new JSONParser();
 			String jsonString= (String) r.getJavaScriptResult();
-			System.out.println(jsonString);
+			//System.out.println(jsonString);
 			JSONObject json = (JSONObject) parser.parse(jsonString);
 			JSONArray contents = (JSONArray) json.get("contents");
 			//System.out.println(contents.toJSONString());
@@ -80,14 +80,14 @@ public class SuperWalMart {
 			JSONObject area = (JSONObject) mainArea.get(1);
 			JSONArray records = (JSONArray) area.get("records");
 
-			System.out.println(records.toJSONString());
+			//System.out.println(records.toJSONString());
 
 
 
 			for (int x = 0; x < records.size(); x++){
 				JSONObject o = (JSONObject) records.get(x);
 				JSONObject attributes= (JSONObject) o.get("attributes");
-				System.out.println(attributes.toJSONString());
+				//System.out.println(attributes.toJSONString());
 
 
 				JSONObject itemJson= new JSONObject();
@@ -110,6 +110,8 @@ public class SuperWalMart {
 					attr = (JSONArray) attributes.get("product.smallImage.url");
 					String imagen = (String) attr.get(0);
 					itemJson.put("imagen", PAGE + imagen );
+				}else {
+					itemJson.put("imagen", null);
 				}
 
 
@@ -141,7 +143,7 @@ public class SuperWalMart {
 		//res.put("total", total);
 
 
-		System.out.println(res.toJSONString());
+		//System.out.println(res.toJSONString());
 
 		return res;
 

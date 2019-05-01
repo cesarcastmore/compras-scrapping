@@ -2,11 +2,11 @@
     "body-json": {},
     "params": {
         "path": {
-            "cadena": "officedepot"
+            "cadena": "officemax"
         },
         "querystring": {
             "page": 1, 
-            "value": "pantalla"
+            "value": "hojas"
         },
         "header": {
             "accept": "application/json, text/plain, */*",
