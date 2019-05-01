@@ -1,9 +1,9 @@
 package com.supermarket;
 
-import com.gargoylesoftware.htmlunit.ScriptResult;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.io.IOException;
 import java.net.URLEncoder;
@@ -14,7 +14,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
-import org.json.simple.parser.ParseException;
+import com.gargoylesoftware.htmlunit.ScriptResult;
 
 import java.util.Iterator;
 import java.util.List;

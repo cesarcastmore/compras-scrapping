@@ -141,7 +141,13 @@ public  class Configuration {
                 OfficeMax pd = new OfficeMax();
                 res = pd.search(search, page.intValue());
 
+            }else if(cadena.equals("delsol")){
+
+                DelSol pd = new DelSol();
+                res = pd.search(search, page.intValue());
+
             }
+
 
 
 
