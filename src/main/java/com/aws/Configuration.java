@@ -146,6 +146,11 @@ public  class Configuration {
                 DelSol pd = new DelSol();
                 res = pd.search(search, page.intValue());
 
+            }else if(cadena.equals("superama")){
+
+                Superama pd = new Superama();
+                res = pd.search(search, page.intValue());
+
             }
 
 
