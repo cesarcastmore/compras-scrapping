@@ -66,7 +66,7 @@ public class AlSuper {
 
 		res.put("results", listJson);
 		//res.put("total", total);
-		System.out.println(res.toJSONString());
+		//System.out.println(res.toJSONString());
 
 		return res;
 
@@ -92,7 +92,7 @@ public class AlSuper {
 		HtmlElement htmlItem = (HtmlElement) obj; 
 		JSONObject itemJson = new JSONObject();
 
-		System.out.println(htmlItem.asXml());
+		//System.out.println(htmlItem.asXml());
   		/*HtmlElement enlaceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//a[@class='product-image']");  
   		String enlace = enlaceHtml.getAttribute("href");
 		itemJson.put("enlace_informacion", enlace);*/
@@ -137,7 +137,7 @@ public class AlSuper {
 		Response response= conn.send(request);
 
 
-		System.out.println(response.getBody());
+		//System.out.println(response.getBody());
 
 
 

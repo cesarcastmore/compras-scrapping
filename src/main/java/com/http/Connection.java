@@ -38,7 +38,6 @@ public class Connection {
 		try {
 
 			String url = request.getUrl();
-			System.out.println("entroo 2 "+ url);
 
 			if (!request.getParam().isEmpty()) {
 
@@ -56,17 +55,14 @@ public class Connection {
 				url = url + parametros;
 			}
 
-			System.out.println("---- URL "+ url);
 
 			url = url.trim();
 
 			URL endURL = new URL(url);
 			httpCon = (javax.net.ssl.HttpsURLConnection) endURL.openConnection();
-			System.out.println("entroo 3 "+ url);
 
 			httpCon.setDoOutput(true);
 			httpCon.setDoInput(true);
-			System.out.println("entroo 4 "+ url);
 
 			httpCon.setDoOutput(true);
 			if (request.getContentType() != null)
@@ -79,7 +75,6 @@ public class Connection {
 				httpCon.setRequestProperty("X-Amz-Invocation-Type", request.getInvocationType());
 
 			httpCon.setRequestMethod(request.getMethod());
-			System.out.println("METHOD "+ request.getMethod());
 
 			if (connectTimeout > 0)
 				httpCon.setConnectTimeout(connectTimeout);
@@ -131,20 +126,16 @@ public class Connection {
 			for (Map.Entry<String, String> entry : request.getHeaders().entrySet())
 				{
 					httpCon.setRequestProperty(entry.getKey(), entry.getValue());
-					System.out.println("header " + entry.getKey());
-										System.out.println("VALUE "   + entry.getValue());
 
 				}
 			}	
 
-			System.out.println("entroo 6 "+ url);
 
 
 			if (request.getConnection() != null) {
 				httpCon.setRequestProperty("Connection",request.getConnection());
 			}
 
-			System.out.println("entroo 7 "+ url);
 
 			if (request.getBody() != null) {
 
@@ -153,7 +144,6 @@ public class Connection {
 				outputStream.flush();
 
 			}
-			System.out.println("entroo 8"+ url);
 
 			// Preparamos el response
 			response = new Response();
@@ -168,7 +158,6 @@ public class Connection {
 				inputStream = httpCon.getErrorStream();
 			}
 
-			System.out.println("entroo 9 "+ url);
 
 			if (inputStream != null) {
 
@@ -184,11 +173,9 @@ public class Connection {
 
 				response.setContentType(httpCon.getContentType());
 				response.setBody(sb.toString());
-						System.out.println( sb.toString());
 
 			}
 
-						System.out.println("entroo 10 ");
 
 
 			httpCon.disconnect();

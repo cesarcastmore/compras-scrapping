@@ -28,7 +28,7 @@ public class Superama {
 
 		OkHttpClient client = new OkHttpClient();
 
-		Request request = new Request.Builder().url("http://www.superama.com.mx/buscador/resultado?busqueda=manzana")
+		Request request = new Request.Builder().url("http://www.superama.com.mx/buscador/resultado?busqueda=" + searchQuery)
   		.get().addHeader("cache-control", "no-cache").addHeader("postman-token", "bb8124df-5fa2-0bb7-3fa8-8e255387c712")
   		.build();
 

@@ -151,7 +151,13 @@ public  class Configuration {
                 Superama pd = new Superama();
                 res = pd.search(search, page.intValue());
 
+            }else if(cadena.equals("bodega_aurrera")){
+
+                BodegaAurrera pd = new BodegaAurrera();
+                res = pd.search(search, page.intValue());
+
             }
+
 
 
 
