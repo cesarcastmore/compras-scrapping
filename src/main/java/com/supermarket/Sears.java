@@ -82,7 +82,7 @@ public class Sears {
 		  //System.out.println("PRECIO" + precio);
 		  BigDecimal precioBD = new BigDecimal(precio);
 
-		  itemJson.put("precio", precioBD.toString());
+		  itemJson.put("precio", precioBD.toString().replace(",", ""));
 
 		 // HtmlElement itemPrice =  htmlItem.getFirstByXPath(".//span[@class='sale-original-price']");  
 		  listJson.add(itemJson);

@@ -64,8 +64,8 @@ public class OfficeDepot {
 		  String enlace_informacion = linkHtml.getAttribute("href");
 		  itemJson.put("enlace_informacion", PAGE + enlace_informacion);
 
-		  HtmlElement imgHtml =  linkHtml.getFirstByXPath(".//img");
-		  String imagen = imgHtml.getAttribute("src");
+		  HtmlElement imgHtml =  linkHtml.getFirstByXPath(".//img[@class='lazy']");
+		  String imagen = imgHtml.getAttribute("data-src");
 		  itemJson.put("imagen", PAGE + imagen);
 
 
@@ -80,7 +80,7 @@ public class OfficeDepot {
 
 		  if(price.contains("\n")){
 		  	price = price.substring(0, price.indexOf("\n"));
-		  	price= price.trim();
+		  	price= price.trim().replace(",", "");
 		  }
 		  itemJson.put("precio", price);
 		  itemJson.put("cadena", "officedepot");

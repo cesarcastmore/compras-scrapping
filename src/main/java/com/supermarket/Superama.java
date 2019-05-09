@@ -52,7 +52,7 @@ public class Superama {
 			itemJson.put("cadena", "Superama");
 
 			String price = (String) producto.get("Precio");
-			itemJson.put("precio", price.replace("$", ""));
+			itemJson.put("precio", price.replace("$", "").replace(",", ""));
 
 			String enlace_informacion = PAGE+ "/catalogo/";
 			String departmentName = (String) producto.get("SeoDepartamentoUrlName");

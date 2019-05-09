@@ -96,7 +96,7 @@ public class DelSol{
 			JSONArray preciosJson = (JSONArray) catalogEntryView.get("price");
 			JSONObject priceJson = (JSONObject) preciosJson.get(0);
 			String price = (String) priceJson.get("value");
-			itemJson.put("precio", price);
+			itemJson.put("precio", price.replace(",", ""));
 
 			listJson.add(itemJson);
 

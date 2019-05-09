@@ -74,7 +74,7 @@ public class Soriana {
 		 	oferta= oferta.replace(",", "");
 		    BigDecimal precioBG = new BigDecimal(oferta); 
 
-		  	itemJson.put("precio", precioBG.toString());
+		  	itemJson.put("precio", precioBG.toString().replace(",", ""));
 
 		  } else {
 		  	itemPrice =  htmlItem.getFirstByXPath(".//span[@class='price ']");  
@@ -84,7 +84,7 @@ public class Soriana {
 		 	price= price.trim();
 		    price= price.replace(",", "");
 		    BigDecimal precioBG = new BigDecimal(price); 
-		 	itemJson.put("precio", precioBG.toString());
+		 	itemJson.put("precio", precioBG.toString().replace(",", ""));
 
 		  }
 

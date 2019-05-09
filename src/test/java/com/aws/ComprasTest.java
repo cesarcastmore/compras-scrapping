@@ -31,8 +31,8 @@ public class ComprasTest {
     FileInputStream input;
     ByteArrayOutputStream baos;
 
-    static String SEARCH="sal";
-    static String COMPANY="bodega_aurrera";
+    static String SEARCH="pantalla";
+    static String COMPANY="chedraui";
 
 	@Before
 	public void initialize() throws Exception {

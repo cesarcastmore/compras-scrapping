@@ -16,12 +16,12 @@ import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
 import java.util.List;
 import java.math.BigDecimal;
 
-public class FarmaciasDelAhorro {
+public class Chedraui {
 
-	public static String url="https://www.fahorro.com/catalogsearch/result/index/?q=";
-	public static String PAGE="https://www.fahorro.com";
+	public static String url="https://www.chedraui.com.mx/search?text=";
+	public static String PAGE="https://www.chedraui.com.mx";
 
-	public FarmaciasDelAhorro(){
+	public Chedraui(){
 
 	}
 
@@ -40,17 +40,20 @@ public class FarmaciasDelAhorro {
 
 		HtmlPage page= null; 
 		try {  
-  			String searchUrl = url  + URLEncoder.encode(searchQuery, "UTF-8") + "&p=" + pageNum;
+  			String searchUrl = url  + URLEncoder.encode(searchQuery, "UTF-8") + "&page=" + pageNum;
   			System.out.println(searchUrl);
 
   			page = client.getPage(searchUrl);
+  						Thread.sleep(3000);
+
+  			//System.out.println(page.asXml());
 		} catch(Exception e){
   			e.printStackTrace();
 		}
 
-		addItems("//li[@class='item first span3']", listJson, page);
-		addItems("//li[@class='item span3']", listJson, page);
-		addItems("//li[@class='item last span3']", listJson, page);
+		addItems("//li[@class='product__list--item']", listJson, page);
+		/*addItems("//li[@class='item span3']", listJson, page);
+		addItems("//li[@class='item last span3']", listJson, page);*/
 
 		//HtmlElement totalHtml =  page.getFirstByXPath(".//p[@class='results-count']"); 
 		//total = totalHtml.asText();
@@ -86,21 +89,22 @@ public class FarmaciasDelAhorro {
 	public JSONObject createItem(Object  obj){
 		HtmlElement htmlItem = (HtmlElement) obj; 
 		JSONObject itemJson = new JSONObject();
-  		HtmlElement enlaceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//a[@class='product-image']");  
+
+		//System.out.println(htmlItem.asXml());
+  		HtmlElement enlaceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//a[@class='product__list--name']");  
   		String enlace = enlaceHtml.getAttribute("href");
-		itemJson.put("enlace_informacion", enlace);
+		itemJson.put("enlace_informacion", PAGE + enlace);
 
 
   		HtmlElement imagenHtml = (HtmlElement) htmlItem.getFirstByXPath(".//img");  
   		String imagen = imagenHtml.getAttribute("src");
 		itemJson.put("imagen", imagen);
 
-  		HtmlElement nameHtml = (HtmlElement) htmlItem.getFirstByXPath(".//h2[@class='product-name']");  
-  		String titulo = nameHtml.asText();
+  		String titulo = enlaceHtml.getAttribute("title");
 		itemJson.put("titulo", titulo);
-		itemJson.put("cadena", "Farmacias Del Ahorro");
+		itemJson.put("cadena", "Chedraui");
 
-  		HtmlElement priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//span[@class='price']");  
+  		HtmlElement priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//div[@class='product__listing--price price-colour-final']");  
   		String price = priceHtml.asText();
   		price= price.replace("$", "").replace(",", "");
 		itemJson.put("precio", price);

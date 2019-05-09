@@ -65,7 +65,7 @@ public class HebSuper {
 		  precio= precio.replace(",", "");
 		  precio= precio.trim();
 		  BigDecimal precioBG = new BigDecimal(precio); 
-		  itemJson.put("precio", precioBG.toString());
+		  itemJson.put("precio", precioBG.toString().replace(",", ""));
 
   		  HtmlElement itemMarca =  htmlItem.getFirstByXPath(".//span[@class='marca-related']");  
 		  String marca = itemMarca.asText();

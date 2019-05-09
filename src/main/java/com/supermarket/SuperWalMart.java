@@ -95,7 +95,7 @@ public class SuperWalMart {
 
 				JSONArray attr = (JSONArray) attributes.get("sku.price");
 				String precio = (String) attr.get(0);
-				itemJson.put("precio", precio);
+				itemJson.put("precio", precio.replace(",", ""));
 
 				attr = (JSONArray) attributes.get("product.seoURL");
 				String enlace_informacion = (String) attr.get(0);

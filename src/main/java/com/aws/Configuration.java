@@ -156,6 +156,11 @@ public  class Configuration {
                 BodegaAurrera pd = new BodegaAurrera();
                 res = pd.search(search, page.intValue());
 
+            }else if(cadena.equals("chedraui")){
+
+                Chedraui pd = new Chedraui();
+                res = pd.search(search, page.intValue());
+
             }
 
 

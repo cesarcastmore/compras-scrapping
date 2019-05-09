@@ -102,7 +102,7 @@ public class BodegaAurrera {
 
   		HtmlElement priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//p[@class='title-precio']");  
   		String price = priceHtml.asText();
-  		price= price.replace("$", "");
+  		price= price.replace("$", "").replace(",", "");
 		itemJson.put("precio", price);
 
 		return itemJson;

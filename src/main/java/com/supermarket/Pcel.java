@@ -113,7 +113,7 @@ public class Pcel {
 			String price = priceHtml.asText();
 	  		price= price.replace("$", "");
 	  		price= price.replace(",", "");
-			itemJson.put("precio", price);
+			itemJson.put("precio", price.replace(",", ""));
 
 
 			return itemJson;

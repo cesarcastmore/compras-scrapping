@@ -69,7 +69,7 @@ public class PromoDescuentos {
 		if(priceHtml != null){
 			HtmlElement pHtml = priceHtml.getFirstByXPath(".//span");
 			String price  = pHtml.asText();
-			itemJson.put("precio", price);
+			itemJson.put("precio", price.replace(",", ""));
 		}	
 
 		  listJson.add(itemJson);

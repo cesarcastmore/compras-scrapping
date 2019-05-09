@@ -91,7 +91,7 @@ public class OfficeMax {
   		HtmlElement priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//span[@class='price-new']");  
   		String price = priceHtml.asText();
   		price= price.replace("$", "");
-		itemJson.put("precio", price);
+		itemJson.put("precio", price.replace(",", ""));
 
 		return itemJson;
 	}

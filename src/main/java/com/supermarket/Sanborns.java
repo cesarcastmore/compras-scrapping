@@ -76,7 +76,7 @@ public class Sanborns {
 		  precioText= precioText.replace(",", "").replace("$", "");
 		  precioText= precioText.trim();
 		  BigDecimal pr = new BigDecimal(precioText);
-		  itemJson.put("precio", pr.toString());
+		  itemJson.put("precio", pr.toString().replace(",", ""));
 
 		  itemJson.put("cadena", "sanborns");
 

@@ -71,7 +71,7 @@ public class BestBuy {
  		  HtmlElement priceHtml =  htmlItem.getFirstByXPath(".//div[@class='product-price']"); 
 		  String price= priceHtml.asText();
 		  price= price.replace("$", "").replace(",", "").trim();
-		  itemJson.put("precio", price);
+		  itemJson.put("precio", price.replace(",", ""));
 
  		  HtmlElement imageHtml =  htmlItem.getFirstByXPath(".//img[@class='product-image']"); 
 		  String imgText= imageHtml.getAttribute("src");

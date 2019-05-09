@@ -82,7 +82,7 @@ public class Liverpool {
 		  		precioOriginal= precioOriginal.trim();
 		  	 	BigDecimal pr = new BigDecimal(precioOriginal);
 		  	 	pr = pr.divide(new BigDecimal(100));
-		  		itemJson.put("precio-original", pr.toString());
+		  		itemJson.put("precio-original", pr.toString().replace(",", ""));
 		      }
 
 
@@ -95,7 +95,7 @@ public class Liverpool {
 		  		precio= precio.trim();
 		  	 	BigDecimal pr = new BigDecimal(precio);
 		  	 	pr = pr.divide(new BigDecimal(100));
-		  		itemJson.put("precio", pr.toString());
+		  		itemJson.put("precio", pr.toString().replace(",", ""));
 		      }
 		  } else {
 		  	if(precioOriginal != null){
@@ -103,7 +103,7 @@ public class Liverpool {
 		  		precioOriginal= precioOriginal.trim();
 		  	 	BigDecimal pr = new BigDecimal(precioOriginal);
 		  	 	pr = pr.divide(new BigDecimal(100));
-		  		itemJson.put("precio", pr.toString());
+		  		itemJson.put("precio", pr.toString().replace(",", ""));
 		      }
 		  	itemJson.remove("precio-original");
 
