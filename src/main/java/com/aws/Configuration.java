@@ -161,6 +161,11 @@ public  class Configuration {
                 Chedraui pd = new Chedraui();
                 res = pd.search(search, page.intValue());
 
+            }else if(cadena.equals("innova_sport")){
+
+                InnovaSport pd = new InnovaSport();
+                res = pd.search(search, page.intValue());
+
             }
 
 

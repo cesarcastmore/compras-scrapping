@@ -25,7 +25,7 @@ import org.json.simple.parser.JSONParser;
 import com.supermarket.HebSuper;
 
 
-public class ComprasTest {
+public class InnovaSportTest {
 
     Configuration conf= null;
     FileInputStream input;
