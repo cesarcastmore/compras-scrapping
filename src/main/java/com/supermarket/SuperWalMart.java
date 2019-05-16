@@ -21,6 +21,9 @@ import java.util.List;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.util.Util;
+
+
 public class SuperWalMart {
 
 	public static String url="https://www.walmart.com.mx/productos?Ntt=";
@@ -104,6 +107,9 @@ public class SuperWalMart {
 				attr = (JSONArray) attributes.get("skuDisplayName");
 				String titulo = (String) attr.get(0);
 				itemJson.put("titulo",titulo );	
+				
+				JSONArray palabras_claves = Util.palabrasClaves(titulo);
+		  		itemJson.put("palabras_claves", palabras_claves);
 
 
 				if(attributes.containsKey("product.smallImage.url")){

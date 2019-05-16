@@ -14,6 +14,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
 public class OfficeMax {
 
 	public static String url="https://www.officemax.com.mx/computadora?&utmi_p=_&utmi_pc=BuscaFullText&utmi_cp=";
@@ -92,6 +94,9 @@ public class OfficeMax {
   		String price = priceHtml.asText();
   		price= price.replace("$", "");
 		itemJson.put("precio", price.replace(",", ""));
+
+		JSONArray palabras_claves = Util.palabrasClaves(titulo);
+		itemJson.put("palabras_claves", palabras_claves);
 
 		return itemJson;
 	}

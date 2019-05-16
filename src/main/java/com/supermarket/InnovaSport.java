@@ -16,6 +16,9 @@ import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
+
 public class InnovaSport {
 
 	public static String url="https://www.innovasport.com/search/?text=";
@@ -103,6 +106,10 @@ public class InnovaSport {
   		String price = priceHtml.asText();
   		price= price.replace("$", "").replace(",", "");
 		itemJson.put("precio", price);
+
+		JSONArray palabras_claves = Util.palabrasClaves(titulo);
+		itemJson.put("palabras_claves", palabras_claves);
+
 
 		return itemJson;
 	}

@@ -15,6 +15,9 @@ import java.util.List;
 import java.math.BigDecimal;
 import java.util.Base64;
 
+import com.util.Util;
+
+
 public class Sears {
 
 	public static String url="https://www.sears.com.mx/buscador/";
@@ -83,6 +86,9 @@ public class Sears {
 		  BigDecimal precioBD = new BigDecimal(precio);
 
 		  itemJson.put("precio", precioBD.toString().replace(",", ""));
+
+		  JSONArray palabras_claves = Util.palabrasClaves(title);
+		  itemJson.put("palabras_claves", palabras_claves);
 
 		 // HtmlElement itemPrice =  htmlItem.getFirstByXPath(".//span[@class='sale-original-price']");  
 		  listJson.add(itemJson);

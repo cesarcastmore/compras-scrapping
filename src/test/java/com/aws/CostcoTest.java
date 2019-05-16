@@ -86,6 +86,8 @@ public class CostcoTest {
                             Assert.fail("El item no contiene el titulo");
                         }else if(!item.containsKey("cadena")) {
                             Assert.fail("El item no contiene el cadena");
+                        }else if(!item.containsKey("palabras_claves")) {
+                            Assert.fail("El item no contiene el palabras_claves");
                         }
                     }
                     

@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 
 public class PromoDescuentos {
 
-	public static String url="https://www.promodescuentos.com/?page=";
+	public static String url="https://www.promodescuentos.com/search?q=";
 	public static String PAGE="https://www.promodescuentos.com";
 
 	public PromoDescuentos(){
@@ -34,7 +34,7 @@ public class PromoDescuentos {
 
 		HtmlPage page= null; 
 		try {  
-  			String searchUrl = url   + pageNum;
+  			String searchUrl = url  +searchQuery + "&page="  + pageNum;
   			System.out.println(searchUrl);
 
   			page = client.getPage(searchUrl);
@@ -63,6 +63,13 @@ public class PromoDescuentos {
 
 			  itemJson.put("descripcion", title);
 			  itemJson.put("enlace_promosion", enlace);
+		}
+
+
+		HtmlElement cadenaHtml =  htmlItem.getFirstByXPath(".//span[@class='text--b text--color-brandPrimary cept-merchant-name']"); 
+		if(cadenaHtml != null){
+			itemJson.put("cadena", cadenaHtml.asText());
+
 		}
 
 		HtmlElement priceHtml =  htmlItem.getFirstByXPath(".//span[@class='overflow--wrap-off']"); 

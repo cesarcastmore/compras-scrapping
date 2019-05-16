@@ -14,6 +14,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
+
 public class OfficeDepot {
 
 	public static String url="https://www.officedepot.com.mx/officedepot/en/Categor%C3%ADa/Todas/c/0-0-0-0?q=";
@@ -58,6 +61,8 @@ public class OfficeDepot {
 		  HtmlElement titleHtml =  htmlItem.getFirstByXPath(".//div[@class='name description-style']"); 
 		  String titulo = titleHtml.asText();
 		  itemJson.put("titulo", titulo);
+		  JSONArray palabras_claves = Util.palabrasClaves(titulo);
+		  itemJson.put("palabras_claves", palabras_claves);
 
 
 		  HtmlElement linkHtml =  htmlItem.getFirstByXPath(".//a[@class='thumb picture-product']"); 

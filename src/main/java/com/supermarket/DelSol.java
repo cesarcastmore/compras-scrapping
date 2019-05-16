@@ -19,6 +19,8 @@ import com.http.*;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
 public class DelSol{
 
 	public static String url="https://www.delsol.com.mx/search/";
@@ -97,6 +99,13 @@ public class DelSol{
 			JSONObject priceJson = (JSONObject) preciosJson.get(0);
 			String price = (String) priceJson.get("value");
 			itemJson.put("precio", price.replace(",", ""));
+
+
+			JSONArray palabras_claves = Util.palabrasClaves(title);
+			itemJson.put("palabras_claves", palabras_claves);
+
+
+
 
 			listJson.add(itemJson);
 

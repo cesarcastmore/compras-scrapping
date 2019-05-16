@@ -12,18 +12,19 @@ import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
 import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
-import com.gargoylesoftware.htmlunit.html.DomElement;
+
 import java.util.List;
 import java.math.BigDecimal;
 
 import com.util.Util;
 
-public class Costco {
 
-	public static String url="https://www.costco.com.mx/search?q=";
-	public static String PAGE="https://www.costco.com.mx";
+public class Marti {
 
-	public Costco(){
+	public static String url="https://www.marti.mx/";
+	public static String PAGE="https://www.marti.mx";
+
+	public Marti(){
 
 	}
 
@@ -35,7 +36,7 @@ public class Costco {
 		client.getOptions().setJavaScriptEnabled(false); 
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		client.getOptions().setThrowExceptionOnScriptError(false);
-        client.setRefreshHandler(new ThreadedRefreshHandler());
+            client.setRefreshHandler(new ThreadedRefreshHandler());
 
 		JSONArray listJson = new JSONArray();
 		String total ="0";
@@ -46,11 +47,13 @@ public class Costco {
   			System.out.println(searchUrl);
 
   			page = client.getPage(searchUrl);
+  			 Thread.sleep(3000);
+
 		} catch(Exception e){
   			e.printStackTrace();
 		}
 
-		addItems("//li[@class='product-item vline  ']", listJson, page);
+		addItems("//div[@class='product-item product-item--square']", listJson, page);
 
 		//HtmlElement totalHtml =  page.getFirstByXPath(".//p[@class='results-count']"); 
 		//total = totalHtml.asText();
@@ -71,14 +74,12 @@ public class Costco {
 
 		List<?> items = page.getByXPath(value);  
 		if(items.isEmpty()){  
-  			System.out.println("No items found !");
+  			
+  			//System.out.println("No items found !");
 		}else{
 			for(Object  obj : items){  
-
 			  JSONObject itemJson = createItem(obj);
-
-			  if(itemJson != null)
-			  	lines.add(itemJson);
+			  lines.add(itemJson);
 			}
 
 		}
@@ -87,39 +88,37 @@ public class Costco {
 
 	public JSONObject createItem(Object  obj){
 		HtmlElement htmlItem = (HtmlElement) obj; 
-
-		//System.out.println("HTML" + htmlItem.asXml());
-
 		JSONObject itemJson = new JSONObject();
-  		HtmlElement enlaceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//div[@class='product-image ']/a");  
-
-		String enlace = enlaceHtml.getAttribute("href");
-		itemJson.put("enlace_informacion", PAGE + enlace);
-
-		HtmlElement imagenHtml = (HtmlElement) enlaceHtml.getFirstByXPath(".//img");  
-		String imagen = imagenHtml.getAttribute("src");
-		itemJson.put("imagen", PAGE + imagen);
+  		HtmlElement enlaceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//a[@class='product-item__main-image contenedor-img dl-product-link']");  
+  		String enlace = enlaceHtml.getAttribute("href");
+		itemJson.put("enlace_informacion", enlace);
 
 
-		HtmlElement nameHtml = (HtmlElement) htmlItem.getFirstByXPath(".//a[@class='js-lister-name']/span");  
-		String titulo = nameHtml.asText();
+  		HtmlElement imagenHtml = (HtmlElement) enlaceHtml.getFirstByXPath(".//img");  
+  		String imagen = imagenHtml.getAttribute("src");
+		itemJson.put("imagen", imagen);
+
+  		HtmlElement nameHtml = (HtmlElement) htmlItem.getFirstByXPath(".//h2[@class='product-item__name']/a");  
+  		String titulo = nameHtml.asText();
 		itemJson.put("titulo", titulo);
-		itemJson.put("cadena", "Costco");
+		itemJson.put("cadena", "Marti");
 
-		HtmlElement priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//span[@class='product-price-amount']/span");  
+		//System.out.println(htmlItem.asXml());
 
-		String price = priceHtml.asText();
-  		price= price.replace("$", "");
-  		price= price.replace(",", "");
+  		HtmlElement priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//span[@class='price-new']");  
+
+  		if(priceHtml == null){
+  			priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//span[@class='price-new price-promo']");  
+  		}
+  		String price = priceHtml.asText();
+  		price= price.replace("$", "").replace(",", "");
 		itemJson.put("precio", price);
-
 
 		JSONArray palabras_claves = Util.palabrasClaves(titulo);
 		itemJson.put("palabras_claves", palabras_claves);
 
 
 		return itemJson;
-
 	}
 
 

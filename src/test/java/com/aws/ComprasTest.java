@@ -31,8 +31,8 @@ public class ComprasTest {
     FileInputStream input;
     ByteArrayOutputStream baos;
 
-    static String SEARCH="playera";
-    static String COMPANY="innova_sport";
+    static String SEARCH="jarabe";
+    static String COMPANY="soriana";
 
 	@Before
 	public void initialize() throws Exception {
@@ -84,6 +84,8 @@ public class ComprasTest {
                             Assert.fail("El item no contiene el titulo");
                         }else if(!item.containsKey("cadena")) {
                             Assert.fail("El item no contiene el cadena");
+                        }else if(!item.containsKey("palabras_claves")) {
+                            Assert.fail("El item no contiene el palabras_claves");
                         }
                     }
                     

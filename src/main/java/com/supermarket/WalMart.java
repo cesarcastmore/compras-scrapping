@@ -21,6 +21,9 @@ import java.util.List;
 import java.math.BigDecimal;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import com.util.Util;
+
+
 public class WalMart {
 
 	public static String url="https://www.walmart.com.mx/productos?Ntt=";
@@ -79,6 +82,9 @@ public class WalMart {
 				itemJson.put("enlace_informacion", o.get("href"));
 				itemJson.put("titulo", o.get("name"));
 				listJson.add(itemJson);
+
+				JSONArray palabras_claves = Util.palabrasClaves((String) o.get("name"));
+		  		itemJson.put("palabras_claves", palabras_claves);
 
 			}
 

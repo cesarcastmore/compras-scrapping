@@ -20,6 +20,7 @@ import com.http.Request;
 import com.http.Response;
 import com.http.Connection;
 
+import com.util.Util;
 
 public class AlSuper {
 
@@ -98,7 +99,11 @@ public class AlSuper {
 		itemJson.put("enlace_informacion", enlace);*/
 
 
-  		HtmlElement imagenHtml = (HtmlElement) htmlItem.getFirstByXPath(".//img[@class='img-responsive center-block']");  
+  		HtmlElement imagenHtml = (HtmlElement) htmlItem.getFirstByXPath(".//img[@class='img-responsive center-block']");
+
+  		if(imagenHtml == null){
+  			imagenHtml = (HtmlElement) htmlItem.getFirstByXPath(".//img[@class='img-responsive center-block lazy']");
+  		}  
   		String imagen = imagenHtml.getAttribute("src");
 		itemJson.put("imagen", imagen);
 
@@ -107,6 +112,9 @@ public class AlSuper {
 	  		String titulo = nameHtml.asText();
 			itemJson.put("titulo", titulo);
 			itemJson.put("cadena", "AlSuper");
+
+			JSONArray palabras_claves = Util.palabrasClaves(titulo);
+			itemJson.put("palabras_claves", palabras_claves);
 		}
 
   		HtmlElement priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//span[@class='color--green']/b"); 

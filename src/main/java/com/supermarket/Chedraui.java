@@ -16,6 +16,9 @@ import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
+
 public class Chedraui {
 
 	public static String url="https://www.chedraui.com.mx/search?text=";
@@ -98,7 +101,7 @@ public class Chedraui {
 
   		HtmlElement imagenHtml = (HtmlElement) htmlItem.getFirstByXPath(".//img");  
   		String imagen = imagenHtml.getAttribute("src");
-		itemJson.put("imagen", imagen);
+		itemJson.put("imagen", PAGE + imagen);
 
   		String titulo = enlaceHtml.getAttribute("title");
 		itemJson.put("titulo", titulo);
@@ -109,6 +112,9 @@ public class Chedraui {
   		price= price.replace("$", "").replace(",", "");
 		itemJson.put("precio", price);
 
+		JSONArray palabras_claves = Util.palabrasClaves(titulo);
+		itemJson.put("palabras_claves", palabras_claves);
+		
 		return itemJson;
 	}
 

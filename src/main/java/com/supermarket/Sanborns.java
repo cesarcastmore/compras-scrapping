@@ -15,6 +15,9 @@ import java.util.Base64;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
+
 public class Sanborns {
 
 	public static String url="https://www.sanborns.com.mx/buscador/";
@@ -66,6 +69,9 @@ public class Sanborns {
 		  String descp = descrnHtml.asText();
 		  itemJson.put("titulo",  descp );
 
+		  JSONArray palabras_claves = Util.palabrasClaves(descp);
+		  itemJson.put("palabras_claves", palabras_claves);
+		  
 		  HtmlElement enlaceHtml =  htmlItem.getFirstByXPath(".//a[@class='descrip']");
 		  String ref = enlaceHtml.getAttribute("href");
 

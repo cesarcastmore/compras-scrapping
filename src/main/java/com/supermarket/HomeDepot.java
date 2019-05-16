@@ -30,6 +30,7 @@ import com.http.Request;
 import com.http.Connection;
 import com.http.Response;
 
+import com.util.Util;
 
 public class HomeDepot {
 
@@ -138,6 +139,9 @@ public class HomeDepot {
 		price= price.substring(0, price.length() - 2);
 		itemJson.put("precio", price.replace(",", ""));
 		itemJson.put("cadena", "HomeDepot");
+		
+		JSONArray palabras_claves = Util.palabrasClaves(title);
+		itemJson.put("palabras_claves", palabras_claves);
 
 
 

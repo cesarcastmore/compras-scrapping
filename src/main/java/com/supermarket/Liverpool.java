@@ -14,6 +14,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
+
 public class Liverpool {
 
 	public static String url="https://www.liverpool.com.mx/tienda/page-";
@@ -57,6 +60,7 @@ public class Liverpool {
 		  itemJson.put("enlace_informacion", "https://www.liverpool.com.mx" + hrefAddres);
 		  String title= itemAddress.getAttribute("title");
 		  itemJson.put("titulo", title);
+		  JSONArray palabras_claves = Util.palabrasClaves(title);
 
 		  HtmlElement itemImg=  htmlItem.getFirstByXPath(".//img[@class='lazy foto-modulo foto-list product-thumb']"); 
 
@@ -66,6 +70,10 @@ public class Liverpool {
 		  itemJson.put("imagen", srcimg);
 		  itemJson.put("sku", sku);
 		  itemJson.put("cadena", "liverpool");
+
+		  palabras_claves.add(sku);
+		  itemJson.put("palabras_claves", palabras_claves);
+
 
 		  String precioOriginal=null;
 
@@ -150,6 +158,9 @@ public class Liverpool {
 		  	 	pr = pr.divide(new BigDecimal(100));
 		  		itemJson.put("precio", pr.toString());
 		      }
+
+
+
 		  	itemJson.remove("precio-original");
 
 		  } 

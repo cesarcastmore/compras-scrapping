@@ -25,14 +25,14 @@ import org.json.simple.parser.JSONParser;
 import com.supermarket.HebSuper;
 
 
-public class SorianaTest {
+public class PromoDescuentosTest {
 
     Configuration conf= null;
     FileInputStream input;
     ByteArrayOutputStream baos;
 
-    static String SEARCH="pantalla";
-    static String COMPANY="soriana";
+    static String SEARCH="estufa";
+    static String COMPANY="promodescuentos";
 
 	@Before
 	public void initialize() throws Exception {
@@ -72,28 +72,11 @@ public class SorianaTest {
 
             if(results == null){
                 Assert.fail("No tiene resultado");
-            } else {
-                if(results.size() > 0){
-                    for(int i=0; i< results.size(); i++){
-                        JSONObject item = (JSONObject) results.get(i);
-                        if(!item.containsKey("precio")){
-                            Assert.fail("El item no contiene el precio");
-                        }else if(!item.containsKey("imagen")) {
-                            Assert.fail("El item no contiene el imagen");
-                        }else if(!item.containsKey("titulo")) {
-                            Assert.fail("El item no contiene el titulo");
-                        }else if(!item.containsKey("cadena")) {
-                            Assert.fail("El item no contiene el cadena");
-                        }else if(!item.containsKey("palabras_claves")) {
-                            Assert.fail("El item no contiene el palabras_claves");
-                        }
-                    }
-                    
-                    System.out.println("Tiene " + results.size() +" resultados");
+            } 
 
-                }
+            System.out.println("Tiene un total de " + results.size() +" resultados");
 
-            }
+            
 
        
 

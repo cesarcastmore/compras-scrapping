@@ -13,6 +13,9 @@ import okhttp3.ResponseBody;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
+
 public class Superama {
 
 	public static String url="https://www.superama.com.mx/";
@@ -46,6 +49,9 @@ public class Superama {
 			String title = (String) producto.get("DescriptionDisplay");
 			itemJson.put("titulo", title);
 
+			JSONArray palabras_claves = Util.palabrasClaves(title);
+		  	itemJson.put("palabras_claves", palabras_claves);
+
 			String img = (String) producto.get("ImageUrl");
 			itemJson.put("imagen", PAGE + img);	
 
@@ -62,6 +68,7 @@ public class Superama {
 			String upc = (String) producto.get("Upc");
 			enlace_informacion = enlace_informacion + departmentName + "/" + familyName + "/" + lineName + "/"+ productName+ "/"+ upc;
 			itemJson.put("enlace_informacion", enlace_informacion);
+
 
 
 			listJson.add(itemJson);

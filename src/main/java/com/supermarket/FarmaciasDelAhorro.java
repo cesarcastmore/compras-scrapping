@@ -16,6 +16,9 @@ import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
+
 public class FarmaciasDelAhorro {
 
 	public static String url="https://www.fahorro.com/catalogsearch/result/index/?q=";
@@ -104,6 +107,9 @@ public class FarmaciasDelAhorro {
   		String price = priceHtml.asText();
   		price= price.replace("$", "").replace(",", "");
 		itemJson.put("precio", price);
+
+		JSONArray palabras_claves = Util.palabrasClaves(titulo);
+		itemJson.put("palabras_claves", palabras_claves);
 
 		return itemJson;
 	}

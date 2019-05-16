@@ -166,6 +166,21 @@ public  class Configuration {
                 InnovaSport pd = new InnovaSport();
                 res = pd.search(search, page.intValue());
 
+            }else if(cadena.equals("marti")){
+
+                Marti pd = new Marti();
+                res = pd.search(search, page.intValue());
+
+            }else if(cadena.equals("farmacias_especializadas")){
+                
+                FarmaciasEspecializadas fe= new FarmaciasEspecializadas();
+                res = fe.search(search, page.intValue());
+
+            }else if(cadena.equals("palacio_hierro")){
+                
+                PalacioHierro ph= new PalacioHierro();
+                res = ph.search(search, page.intValue());
+
             }
 
 

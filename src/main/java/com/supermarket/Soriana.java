@@ -14,6 +14,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
+
 public class Soriana {
 
 	public static String url="https://www.soriana.com/soriana/es/search?q=";
@@ -96,6 +99,9 @@ public class Soriana {
 		  itemJson.put("enlace_informacion", "https://www.soriana.com" + info);
 		  itemJson.put("titulo", name);
 		  itemJson.put("cadena", "Soriana");
+
+		  JSONArray palabras_claves = Util.palabrasClaves(name);
+		  itemJson.put("palabras_claves", palabras_claves);
 
 		  listJson.add(itemJson);
 

@@ -14,6 +14,9 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
+
 public class BestBuy {
 
 	public static String url="https://www.bestbuy.com.mx/c/buscar-best-buy/buscar?query=";
@@ -77,6 +80,11 @@ public class BestBuy {
 		  String imgText= imageHtml.getAttribute("src");
 		  itemJson.put("imagen", imgText);
 		  itemJson.put("cadena", "bestbuy");
+
+		  JSONArray palabras_claves = Util.palabrasClaves(title);
+		  palabras_claves.add(sku);
+		  itemJson.put("palabras_claves", palabras_claves);
+
 
 		  listJson.add(itemJson);
 		}

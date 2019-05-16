@@ -14,6 +14,8 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
 public class HebSuper {
 
 	public static String url="https://www.heb.com.mx/catalogsearch/result/index/?cat=";
@@ -70,6 +72,11 @@ public class HebSuper {
   		  HtmlElement itemMarca =  htmlItem.getFirstByXPath(".//span[@class='marca-related']");  
 		  String marca = itemMarca.asText();
 		  itemJson.put("marca", marca);
+
+		  
+		  JSONArray palabras_claves = Util.palabrasClaves(title);
+		  itemJson.put("palabras_claves", palabras_claves);
+
 
 		  listJson.add(itemJson);
 

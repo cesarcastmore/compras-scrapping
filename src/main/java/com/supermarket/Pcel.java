@@ -16,6 +16,8 @@ import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.Util;
+
 public class Pcel {
 
 	public static String url="https://pcel.com/index.php?route=product/search&filter_name=";
@@ -114,6 +116,9 @@ public class Pcel {
 	  		price= price.replace("$", "");
 	  		price= price.replace(",", "");
 			itemJson.put("precio", price.replace(",", ""));
+
+			JSONArray palabras_claves = Util.palabrasClaves(titulo);
+			itemJson.put("palabras_claves", palabras_claves);
 
 
 			return itemJson;
