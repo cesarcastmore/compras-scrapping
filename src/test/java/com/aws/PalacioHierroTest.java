@@ -31,7 +31,7 @@ public class PalacioHierroTest {
     FileInputStream input;
     ByteArrayOutputStream baos;
 
-    static String SEARCH="zapato";
+    static String SEARCH="estufa";
     static String COMPANY="palacio_hierro";
 
 	@Before

@@ -97,12 +97,20 @@ public class PalacioHierro {
 		itemJson.put("enlace_informacion", PAGE + enlace);
 
 
-  		HtmlElement imagenHtml = (HtmlElement) htmlItem.getFirstByXPath(".//img");  
-  		String imagen = imagenHtml.getAttribute("src");
-		itemJson.put("imagen", imagen);
+
+  		HtmlElement imagenHtml = (HtmlElement) htmlItem.getFirstByXPath(".//a[@class='product-image']/img");  
+  		String imagen = imagenHtml.getAttribute("data-src");
+		itemJson.put("imagen",  imagen);
+		//System.out.println(imagen);
 
   		HtmlElement nameHtml = (HtmlElement) htmlItem.getFirstByXPath(".//p[@class='jbb-list-item-description ']/span");  
-  		String titulo = nameHtml.asText();
+		String titulo="";
+  		if(nameHtml != null)
+  			 titulo =titulo +" " + nameHtml.asText();
+
+		nameHtml = (HtmlElement) htmlItem.getFirstByXPath(".//p[@class='jbb-list-item-description  title_large']/span");  
+  		if(nameHtml != null)
+  			titulo =titulo +" "+ nameHtml.asText();
 
   		nameHtml = (HtmlElement) htmlItem.getFirstByXPath(".//p[@class='ls-grid-title']");  
   		String titulo2 = nameHtml.asText();
