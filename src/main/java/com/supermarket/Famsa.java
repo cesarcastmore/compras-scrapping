@@ -16,6 +16,7 @@ import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
 
 import java.util.List;
 import java.math.BigDecimal;
+import com.util.Util;
 
 public class Famsa {
 
@@ -35,7 +36,7 @@ public class Famsa {
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		client.getOptions().setThrowExceptionOnScriptError(false);
 		client.setRefreshHandler(new ThreadedRefreshHandler());
-		client.setJavaScriptTimeout(40000);
+		client.setJavaScriptTimeout(4000);
 
 		JSONArray listJson = new JSONArray();
 		String total ="0";
@@ -47,7 +48,7 @@ public class Famsa {
 			System.out.println(searchUrl);
 			page = client.getPage(searchUrl);
 
-			Thread.sleep(20000);
+			Thread.sleep(10000);
 
 			System.out.println(page.asXml());
 		} catch (IOException | InterruptedException e) {
@@ -111,6 +112,10 @@ public class Famsa {
   		String price = priceHtml.asText();
   		price= price.replace("$", "");
 		itemJson.put("precio", price);
+
+		JSONArray palabras_claves = Util.palabrasClaves(titulo);
+		itemJson.put("palabras_claves", palabras_claves);
+
 
 		return itemJson;
 	}
