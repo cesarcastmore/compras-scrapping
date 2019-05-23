@@ -11,6 +11,7 @@ import com.gargoylesoftware.htmlunit.html.HtmlAddress;
 import com.gargoylesoftware.htmlunit.html.HtmlElement;
 import com.gargoylesoftware.htmlunit.html.HtmlPage;
 import com.gargoylesoftware.htmlunit.BrowserVersion;
+import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
 
 import java.util.List;
 import java.math.BigDecimal;
@@ -28,8 +29,12 @@ public class Sams {
 	public JSONObject search(String searchQuery, Integer pageNum) throws Exception {
 
 		WebClient client = new WebClient(BrowserVersion.CHROME);  
-		client.getOptions().setCssEnabled(true);  
+client.getOptions().setCssEnabled(true);  
 		client.getOptions().setJavaScriptEnabled(true); 
+		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
+		client.getOptions().setThrowExceptionOnScriptError(false);
+
+		client.setRefreshHandler(new ThreadedRefreshHandler());
 		JSONArray listJson = new JSONArray();
 		String total ="0";
 
@@ -39,11 +44,13 @@ public class Sams {
   			System.out.println(searchUrl);
 
   			page = client.getPage(searchUrl);
+  			Thread.sleep(3000);
+
 		} catch(Exception e){
   			e.printStackTrace();
 		}
 
-		//System.out.println("HTML" +page.asXml());
+		System.out.println("HTML" +page.asXml());
 
 		List<?> items =  page.getByXPath("//div[@class='product-listing  desktop']");  
 		if(items.isEmpty()){  

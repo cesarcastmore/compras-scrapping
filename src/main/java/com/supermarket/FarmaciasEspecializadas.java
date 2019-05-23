@@ -6,12 +6,13 @@ import org.json.simple.parser.JSONParser;
 
 import java.net.URLEncoder;
 
-import com.gargoylesoftware.htmlunit.WebClient;
-import com.gargoylesoftware.htmlunit.html.HtmlAddress;
-import com.gargoylesoftware.htmlunit.html.HtmlElement;
-import com.gargoylesoftware.htmlunit.html.HtmlPage;
-import com.gargoylesoftware.htmlunit.BrowserVersion;
-import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
+
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
+import okhttp3.Response;
+import okhttp3.RequestBody;
+import okhttp3.MediaType;
+import okhttp3.ResponseBody;
 
 import java.util.List;
 import java.math.BigDecimal;
@@ -21,9 +22,10 @@ import com.util.Util;
 
 public class FarmaciasEspecializadas {
 
-	public static String url="https://www.farmaciasespecializadas.com/medicamentos?s=";
-	public static String PAGE="https://www.farmaciasespecializadas.com";
-
+	public static String API="https://api.farmaciasespecializadas.com/api/v1/medicamentos";
+	public static String IMAGE="https://api.farmaciasespecializadas.com/api/v1/medicamentos/imagen/";
+	public static String INFO="https://www.farmaciasespecializadas.com/medicamentos/detalle/";
+	public static final MediaType JSON = MediaType.parse("application/json; charset=utf-8");
 	public FarmaciasEspecializadas(){
 
 	}
@@ -31,88 +33,66 @@ public class FarmaciasEspecializadas {
 
 	public JSONObject search(String searchQuery, Integer pageNum) throws Exception {
 
-		WebClient client = new WebClient(BrowserVersion.FIREFOX_60);  
-		client.getOptions().setCssEnabled(false);  
-		client.getOptions().setJavaScriptEnabled(false); 
-		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
-		client.getOptions().setThrowExceptionOnScriptError(false);
-            client.setRefreshHandler(new ThreadedRefreshHandler());
+		JSONArray items = client(searchQuery, 0);
+
+		System.out.println(items.toJSONString());
 
 		JSONArray listJson = new JSONArray();
+
 		String total ="0";
-
-		HtmlPage page= null; 
-		try {  
-  			String searchUrl = url  + URLEncoder.encode(searchQuery, "UTF-8") + "&p=" + pageNum;
-  			System.out.println(searchUrl);
-
-  			page = client.getPage(searchUrl);
-		} catch(Exception e){
-  			e.printStackTrace();
-		}
-
-		addItems("//div[@class='card__inside d-flex flex-align']", listJson, page);
-
-		//HtmlElement totalHtml =  page.getFirstByXPath(".//p[@class='results-count']"); 
-		//total = totalHtml.asText();
-		//total= total.replace("resultados", "").trim();
-
 		JSONObject res= new JSONObject();
 
 		res.put("results", listJson);
-		//res.put("total", total);
-		//System.out.println(res.toJSONString());
-
+	
 		return res;
 
 	}
 
 
-	public void addItems(String value, JSONArray lines, HtmlPage page){
+	public JSONArray client(String term, Integer page) throws Exception {
 
-		List<?> items = page.getByXPath(value);  
-		if(items.isEmpty()){  
-  			
-  			//System.out.println("No items found !");
-		}else{
-			for(Object  obj : items){  
-			  JSONObject itemJson = createItem(obj);
-			  lines.add(itemJson);
-			}
+		OkHttpClient client = new OkHttpClient();
 
-		}
+		MediaType mediaType = MediaType.parse("application/json, text/plain, */*");
+		RequestBody body = RequestBody.create(mediaType, "{\"filtros\": {\"id_categoria\": null, \"id_laboratorio\": -1, \"termino\": \""+term+"\"}}\n");
+		Request request = new Request.Builder()
+		  .url("https://api.farmaciasespecializadas.com/api/v1/medicamentos")
+		  .post(body)
+		  .addHeader("content-type", "application/json, text/plain, */*")
+		  .addHeader("authorization", "Bearer")
+		  .addHeader("clientsecret", "FhCEI78CAFpOtzIgC1JE8BIJ1IHUIgzrlzCscnqW")
+		  .addHeader("ordenar", "asc")
+		  .addHeader("ordenar-campo", "Name")
+		  .addHeader("clientid", "2")
+		  .addHeader("pagina-actual", "1")
+		  .addHeader("elementos-por-pagina", "32")
+		  .addHeader("cache-control", "no-cache")
+		  .addHeader("postman-token", "61ebcd12-d988-0508-8b99-48ea5cdddedc")
+		  .build();
+
+		Response response = client.newCall(request).execute();
+
+		ResponseBody responseBody = response.body();
+		String bodyResponse = responseBody.string();
+
+		JSONObject responseJson = (JSONObject) new JSONParser().parse(bodyResponse);
+
+		System.out.println(responseJson.toJSONString());
+
+
+		return new JSONArray();
+
 
 	}
 
-	public JSONObject createItem(Object  obj){
-		HtmlElement htmlItem = (HtmlElement) obj; 
-		JSONObject itemJson = new JSONObject();
 
-		System.out.println(htmlItem.asXml());
-  		/*HtmlElement enlaceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//a[@class='product-image']");  
-  		String enlace = enlaceHtml.getAttribute("href");
-		itemJson.put("enlace_informacion", enlace);
+	public void addItems(JSONObject line){
 
+	
 
-  		HtmlElement imagenHtml = (HtmlElement) htmlItem.getFirstByXPath(".//img");  
-  		String imagen = imagenHtml.getAttribute("src");
-		itemJson.put("imagen", imagen);
-
-  		HtmlElement nameHtml = (HtmlElement) htmlItem.getFirstByXPath(".//h2[@class='product-name']");  
-  		String titulo = nameHtml.asText();
-		itemJson.put("titulo", titulo);
-		itemJson.put("cadena", "Farmacias Del Ahorro");
-
-  		HtmlElement priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//span[@class='price']");  
-  		String price = priceHtml.asText();
-  		price= price.replace("$", "").replace(",", "");
-		itemJson.put("precio", price);
-
-		JSONArray palabras_claves = Util.palabrasClaves(titulo);
-		itemJson.put("palabras_claves", palabras_claves);
-*/
-		return itemJson;
 	}
+
+	
 
 
 

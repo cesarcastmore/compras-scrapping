@@ -27,7 +27,7 @@ import com.util.Util;
 public class WalMart {
 
 	public static String url="https://www.walmart.com.mx/productos?Ntt=";
-	public static String PAGE="https://www.walmart.com.mx/productos?Ntt=";
+	public static String PAGE="https://www.walmart.com.mx";
 
 	public WalMart(){
 
@@ -79,7 +79,7 @@ public class WalMart {
 				itemJson.put("cadena", "WalMart");
 				itemJson.put("precio",o.get("price") );
 				itemJson.put("imagen", o.get("image"));
-				itemJson.put("enlace_informacion", o.get("href"));
+				itemJson.put("enlace_informacion", PAGE + o.get("href"));
 				itemJson.put("titulo", o.get("name"));
 				listJson.add(itemJson);
 

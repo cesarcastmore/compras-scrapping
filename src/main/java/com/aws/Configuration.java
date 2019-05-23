@@ -26,6 +26,7 @@ public  class Configuration {
 	{
         JSONParser parser = new JSONParser();
         JSONObject jsonRequest = (JSONObject) parser.parse(requestString);
+        System.out.println(jsonRequest.toJSONString());
 
         JSONObject context = (JSONObject) jsonRequest.get("context");
         JSONObject params = (JSONObject) jsonRequest.get("params");

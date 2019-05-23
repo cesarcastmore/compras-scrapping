@@ -25,7 +25,7 @@ import org.json.simple.parser.JSONParser;
 import com.supermarket.HebSuper;
 
 
-public class SamsTe {
+public class SamsTest {
 
     Configuration conf= null;
     FileInputStream input;
