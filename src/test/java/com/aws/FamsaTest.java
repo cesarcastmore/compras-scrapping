@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 import org.junit.Test;
 import org.junit.Before;
-import  org.junit.Assert;
+import org.junit.Assert;
 
 import com.aws.Configuration;
 
@@ -25,14 +25,14 @@ import org.json.simple.parser.JSONParser;
 import com.supermarket.HebSuper;
 
 
-public class ComprasTest {
+public class FamsaTest {
 
     Configuration conf= null;
     FileInputStream input;
     ByteArrayOutputStream baos;
 
-    static String SEARCH="rebook";
-    static String COMPANY="netshoes";
+    static String SEARCH="pantalla";
+    static String COMPANY="famsa";
 
 	@Before
 	public void initialize() throws Exception {

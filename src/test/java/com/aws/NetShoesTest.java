@@ -25,14 +25,14 @@ import org.json.simple.parser.JSONParser;
 import com.supermarket.HebSuper;
 
 
-public class FamsaTest {
+public class NetShoesTest {
 
     Configuration conf= null;
     FileInputStream input;
     ByteArrayOutputStream baos;
 
-    static String SEARCH="pantalla";
-    static String COMPANY="famsa";
+    static String SEARCH="rebook";
+    static String COMPANY="netshoes";
 
 	@Before
 	public void initialize() throws Exception {

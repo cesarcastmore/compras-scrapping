@@ -32,7 +32,7 @@ public class SamsTest {
     ByteArrayOutputStream baos;
 
     static String SEARCH="pantalla";
-    static String COMPANY="sams";
+    static String COMPANY="soriana";
 
 	@Before
 	public void initialize() throws Exception {

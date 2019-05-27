@@ -182,7 +182,23 @@ public  class Configuration {
                 PalacioHierro ph= new PalacioHierro();
                 res = ph.search(search, page.intValue());
 
+            }else if(cadena.equals("netshoes")){
+                
+                NetShoes ns= new NetShoes();
+                res = ns.search(search, page.intValue());
+
             }
+
+            JSONArray results= (JSONArray) res.get("results");
+
+            for(Integer i=0; i<results.size(); i++ ){
+                JSONObject item= (JSONObject) results.get(i);
+                item.put("value", cadena);
+            }
+
+
+            res.put("search", search);
+            res.put("page", page.intValue());
 
 
 

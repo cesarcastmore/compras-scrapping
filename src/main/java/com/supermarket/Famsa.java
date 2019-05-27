@@ -36,7 +36,7 @@ public class Famsa {
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		client.getOptions().setThrowExceptionOnScriptError(false);
 		client.setRefreshHandler(new ThreadedRefreshHandler());
-		client.setJavaScriptTimeout(4000);
+		client.setJavaScriptTimeout(3000);
 
 		JSONArray listJson = new JSONArray();
 		String total ="0";
@@ -48,9 +48,9 @@ public class Famsa {
 			System.out.println(searchUrl);
 			page = client.getPage(searchUrl);
 
-			Thread.sleep(10000);
+			Thread.sleep(3000);
 
-			System.out.println(page.asXml());
+			//System.out.println(page.asXml());
 		} catch (IOException | InterruptedException e) {
 			e.printStackTrace();
 		}
@@ -65,7 +65,7 @@ public class Famsa {
 
 		res.put("results", listJson);
 		//res.put("total", total);
-		System.out.println(res.toJSONString());
+		//System.out.println(res.toJSONString());
 
 		return res;
 
@@ -74,7 +74,7 @@ public class Famsa {
 
 	public void addItems(String value, JSONArray lines, HtmlPage page){
 
-		System.out.println("OUT XML" + page.asXml());
+		//System.out.println("OUT XML" + page.asXml());
 
 		List<?> items = page.getByXPath(value);  
 		if(items.isEmpty()){  
@@ -93,24 +93,27 @@ public class Famsa {
 
 		HtmlElement htmlItem = (HtmlElement) obj; 
 		JSONObject itemJson = new JSONObject();
-  		HtmlElement enlaceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//a");  
+  		HtmlElement enlaceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//h2[@class='product-name cuit_title']/a");  
   		String enlace = enlaceHtml.getAttribute("href");
-		itemJson.put("enlace_informacion", enlace);
+		itemJson.put("enlace_informacion", enlace.replace("//", ""));
+
+		//System.out.println(htmlItem.asXml());
 
 
-  		HtmlElement imagenHtml = (HtmlElement) htmlItem.getFirstByXPath(".//img");  
-  		String imagen = imagenHtml.getAttribute("src");
-		itemJson.put("imagen", imagen);
+  		HtmlElement imagenHtml = (HtmlElement) htmlItem.getFirstByXPath(".//div[@class='product-image']/a");  
+  		String imagen = imagenHtml.getAttribute("hrefimg");
+		itemJson.put("imagen", imagen.replace("//", ""));
 
-  		HtmlElement h2Html = (HtmlElement) htmlItem.getFirstByXPath(".//h2[@class='product-name cuit_title']");  
-  		HtmlElement nameHtml = (HtmlElement) h2Html.getFirstByXPath(".//a");  
-  		String titulo = nameHtml.asText();
+  		HtmlElement h2Html = (HtmlElement) htmlItem.getFirstByXPath(".//h2[@class='product-name cuit_title']/a");  
+  		String titulo = h2Html.getAttribute("title");
 		itemJson.put("titulo", titulo);
 		itemJson.put("cadena", "Famsa");
 
   		HtmlElement priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//div[@class='price_sale']");  
-  		String price = priceHtml.asText();
-  		price= price.replace("$", "");
+  		String price = priceHtml.asXml();
+  		price= price.replace("<span class=\"price_symbol\">", "").replace("CTDO.", "").replace("</span>", "").replace("\n", "")
+  		.replace("\t", "").replace("<div class=\"price_sale\">", "").replace("</div>", "");
+  		price= price.replace("$", "").replace("\r", "").replace(",", "").trim();
 		itemJson.put("precio", price);
 
 		JSONArray palabras_claves = Util.palabrasClaves(titulo);
