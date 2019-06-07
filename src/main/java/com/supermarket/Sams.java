@@ -16,11 +16,14 @@ import com.gargoylesoftware.htmlunit.ThreadedRefreshHandler;
 import java.util.List;
 import java.math.BigDecimal;
 
+import com.util.FireStoreClient;
+
+
 public class Sams {
 
 	public static String url="https://www.sams.com.mx/search/Ntt=";
 	public static String PAGE="https://www.sams.com.mx";
-
+	
 	public Sams(){
 
 	}
@@ -29,7 +32,7 @@ public class Sams {
 	public JSONObject search(String searchQuery, Integer pageNum) throws Exception {
 
 		WebClient client = new WebClient(BrowserVersion.CHROME);  
-client.getOptions().setCssEnabled(true);  
+		client.getOptions().setCssEnabled(true);  
 		client.getOptions().setJavaScriptEnabled(true); 
 		client.getOptions().setThrowExceptionOnFailingStatusCode(false);
 		client.getOptions().setThrowExceptionOnScriptError(false);
@@ -61,7 +64,6 @@ client.getOptions().setCssEnabled(true);
 		  HtmlElement htmlItem = (HtmlElement) obj; 
 
 		  JSONObject itemJson = new JSONObject();
-		  //System.out.println("1");
 
 
 		  listJson.add(itemJson);

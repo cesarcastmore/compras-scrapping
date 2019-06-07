@@ -25,14 +25,14 @@ import org.json.simple.parser.JSONParser;
 import com.supermarket.HebSuper;
 
 
-public class OfficeMaxTest {
+public class CoppelTest {
 
     Configuration conf= null;
     FileInputStream input;
     ByteArrayOutputStream baos;
 
-    static String SEARCH="silla ejecutiva";
-    static String COMPANY="officemax";
+    static String SEARCH="mesa";
+    static String COMPANY="coppel";
 
 	@Before
 	public void initialize() throws Exception {
@@ -78,8 +78,6 @@ public class OfficeMaxTest {
                         JSONObject item = (JSONObject) results.get(i);
                         if(!item.containsKey("precio")){
                             Assert.fail("El item no contiene el precio");
-                        }else if(!item.containsKey("enlace_informacion")) {
-                            Assert.fail("El item no contiene el enlace_informacion");
                         }else if(!item.containsKey("imagen")) {
                             Assert.fail("El item no contiene el imagen");
                         }else if(!item.containsKey("titulo")) {

@@ -31,7 +31,7 @@ public class OfficeDepotTest {
     FileInputStream input;
     ByteArrayOutputStream baos;
 
-    static String SEARCH="hojas";
+    static String SEARCH="silla ejecutiva";
     static String COMPANY="officedepot";
 
 	@Before

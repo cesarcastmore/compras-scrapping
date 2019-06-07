@@ -13,9 +13,11 @@ import com.gargoylesoftware.htmlunit.html.HtmlPage;
 
 import java.util.List;
 import java.math.BigDecimal;
+import java.util.Map;
+import java.util.HashMap;
 
 import com.util.Util;
-
+import com.util.FireStoreClient;
 
 public class Soriana {
 
@@ -27,6 +29,7 @@ public class Soriana {
 
 
 	public JSONObject search(String searchQuery, Integer pageNum) throws Exception {
+
 
 		WebClient client = new WebClient();  
 		client.getOptions().setCssEnabled(false);  

@@ -14,8 +14,11 @@ import java.nio.charset.Charset;
 import com.amazonaws.services.lambda.runtime.Context;
 
 import com.supermarket.*;
+import com.util.FireStoreClient;
 
 public  class Configuration {
+
+    public FireStoreClient fire;
 
     public void execute(InputStream inputStream, OutputStream outputStream, Context ctt) throws Exception{
         String requestString = toString(inputStream);
@@ -24,6 +27,9 @@ public  class Configuration {
 
   public void execute(String requestString, OutputStream outputStream, Context ctt) throws Exception
 	{
+
+        this.fire = new FireStoreClient();
+
         JSONParser parser = new JSONParser();
         JSONObject jsonRequest = (JSONObject) parser.parse(requestString);
         System.out.println(jsonRequest.toJSONString());
@@ -40,6 +46,8 @@ public  class Configuration {
 
             JSONObject  res = new JSONObject();
             String search= (String) querystring.get("value");
+            String uuid= (String) querystring.get("uuid");
+
             Long page= toLong(querystring.get("page"));
 
             if(cadena.equals("heb")){
@@ -187,6 +195,11 @@ public  class Configuration {
                 NetShoes ns= new NetShoes();
                 res = ns.search(search, page.intValue());
 
+            }else if(cadena.equals("elektra")){
+                
+                Elektra ek= new Elektra();
+                res = ek.search(search, page.intValue());
+
             }
 
             JSONArray results= (JSONArray) res.get("results");
@@ -194,6 +207,8 @@ public  class Configuration {
             for(Integer i=0; i<results.size(); i++ ){
                 JSONObject item= (JSONObject) results.get(i);
                 item.put("value", cadena);
+                this.fire.insert(uuid, item);
+
             }
 
 
