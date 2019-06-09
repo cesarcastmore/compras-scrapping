@@ -8,12 +8,26 @@ import com.google.firebase.FirebaseApp;
 import com.google.cloud.firestore.FirestoreOptions;
 import com.google.firebase.FirebaseOptions;
 
-import com.google.cloud.firestore.DocumentReference;
 import com.google.api.core.ApiFuture;
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.FieldValue;
+import com.google.cloud.firestore.Firestore;
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.SetOptions;
+import com.google.cloud.firestore.Transaction;
+import com.google.cloud.firestore.WriteBatch;
 import com.google.cloud.firestore.WriteResult;
 
-import java.util.Map;
+
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -54,6 +68,34 @@ import org.json.simple.parser.JSONParser;
 		System.out.println("Added document with ID: " + addedDocRef.get().getId());
 
 	} 
+
+
+	public void delete(String uuid) throws Exception {
+
+		deleteCollection(db.collection("busqueda/" + uuid ), 5000);
+
+	} 
+
+
+	private void deleteCollection(CollectionReference collection, int batchSize) {
+		  try {
+		    // retrieve a small batch of documents to avoid out-of-memory errors
+		    ApiFuture<QuerySnapshot> future = collection.limit(batchSize).get();
+		    int deleted = 0;
+		    // future.get() blocks on document retrieval
+		    List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+		    for (QueryDocumentSnapshot document : documents) {
+		      document.getReference().delete();
+		      ++deleted;
+		    }
+		    if (deleted >= batchSize) {
+		      // retrieve and delete another batch
+		      deleteCollection(collection, batchSize);
+		    }
+		  } catch (Exception e) {
+		    System.err.println("Error deleting collection : " + e.getMessage());
+		  }
+}
 
 
 	

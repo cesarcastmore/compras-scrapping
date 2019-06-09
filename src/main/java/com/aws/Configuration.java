@@ -226,6 +226,18 @@ public  class Configuration {
         }
 
 
+        if(resource_path.equals("/compras/busqueda")){
+            JSONObject  res = new JSONObject();
+
+            String uuid= (String) querystring.get("uuid");
+            this.fire.delete(uuid);
+
+
+            outputStream.write(res.toJSONString().getBytes(Charset.forName("UTF-8")));
+            outputStream.close();
+        }
+
+
 
 
 
