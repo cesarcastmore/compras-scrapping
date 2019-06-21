@@ -111,16 +111,19 @@ public class Coppel {
 		String titulo = nameHtml.asText();
 		itemJson.put("titulo", titulo);
 		itemJson.put("cadena", "Coppel");
+		System.out.println("------------------");
 		System.out.println(titulo);
 
 		JSONArray palabras_claves = Util.palabrasClaves(titulo);
 		itemJson.put("palabras_claves", palabras_claves);
 
-		HtmlElement priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//div[@class='pcontado']/span");  
+		HtmlElement priceHtml = (HtmlElement) htmlItem.getFirstByXPath(".//div[@class='pcontado']/input");  
 
-		String price = priceHtml.asText();
+		String price = priceHtml.getAttribute("value");
   		price= price.replace("$", "");
   		price= price.replace(",", "");
+
+
 		itemJson.put("precio", price);
 
 

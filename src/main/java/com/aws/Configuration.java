@@ -207,6 +207,10 @@ public  class Configuration {
             for(Integer i=0; i<results.size(); i++ ){
                 JSONObject item= (JSONObject) results.get(i);
                 item.put("value", cadena);
+
+                if(i == results.size() - 1){
+                    item.put("end", true);
+                }
                 this.fire.insert(uuid, item);
 
             }

@@ -63,6 +63,11 @@ import org.json.simple.parser.JSONParser;
 		data.put("imagen", (String) item.get("imagen") );
 		data.put("value", (String) item.get("value") );
 
+		if(item.containsKey("end")){
+			data.put("end", (boolean) item.get("end") );
+
+		}
+
 
 		ApiFuture<DocumentReference> addedDocRef = db.collection("busqueda/" + uuid + "/resultados").add(data);
 		System.out.println("Added document with ID: " + addedDocRef.get().getId());
@@ -72,7 +77,9 @@ import org.json.simple.parser.JSONParser;
 
 	public void delete(String uuid) throws Exception {
 
-		deleteCollection(db.collection("busqueda/" + uuid ), 5000);
+		
+
+		deleteCollection(db.collection("busqueda/" + uuid + "/resultados"), 50);
 
 	} 
 
@@ -86,9 +93,17 @@ import org.json.simple.parser.JSONParser;
 		    List<QueryDocumentSnapshot> documents = future.get().getDocuments();
 		    for (QueryDocumentSnapshot document : documents) {
 		      document.getReference().delete();
+		      System.out.println("future.get() blocks on document retrieval");
+
 		      ++deleted;
+
+		      System.out.println(deleted);
 		    }
+		    Thread.sleep(400);
+
 		    if (deleted >= batchSize) {
+
+		    	System.out.println("retrieve and delete another batch");
 		      // retrieve and delete another batch
 		      deleteCollection(collection, batchSize);
 		    }
