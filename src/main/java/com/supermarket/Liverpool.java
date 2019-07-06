@@ -25,6 +25,42 @@ public class Liverpool {
 
 	}
 
+	public JSONObject search(String searchQuery) throws Exception {
+
+		Integer pageNum=1;
+		JSONArray items= new JSONArray();
+
+		JSONObject response = search(searchQuery, pageNum);
+		JSONArray results = (JSONArray) response.get("results");
+
+		System.out.println(results.toJSONString());
+
+
+		while(results.size() > 0){
+
+			for(Integer i=0; i< results.size(); i++){
+				items.add((JSONObject) results.get(i));
+			}
+
+
+			pageNum= pageNum + 1;
+			response = search(searchQuery, pageNum);
+			results = (JSONArray) response.get("results");
+					System.out.println(results.toJSONString());
+
+
+		}
+
+
+		JSONObject json= new JSONObject();
+		json.put("results", items);
+
+		return json;
+
+
+
+	}
+
 
 	public JSONObject search(String searchQuery, Integer pageNum) throws Exception {
 
@@ -36,7 +72,7 @@ public class Liverpool {
 
 		HtmlPage page= null; 
 		try {  
-  			String searchUrl = url + pageNum + "?s=" + URLEncoder.encode(searchQuery, "UTF-8");
+  			String searchUrl = url + pageNum + "?s=" + searchQuery;
   			System.out.println(searchUrl);
 
   			page = client.getPage(searchUrl);

@@ -32,6 +32,41 @@ public class AlSuper {
 	}
 
 
+
+	public JSONObject search(String searchQuery) throws Exception {
+
+		Integer pageNum=0;
+		JSONArray items= new JSONArray();
+
+		JSONObject response = search(searchQuery, pageNum);
+		JSONArray results = (JSONArray) response.get("results");
+
+
+		while(results.size() > 0){
+
+			for(Integer i=0; i< results.size(); i++){
+				items.add((JSONObject) results.get(i));
+			}
+
+
+			pageNum= pageNum + 1;
+			response = search(searchQuery, pageNum);
+			results = (JSONArray) response.get("results");
+
+		}
+
+
+		JSONObject json= new JSONObject();
+		json.put("results", items);
+
+		return json;
+
+
+
+	}
+
+
+
 	public JSONObject search(String searchQuery, Integer pageNum) throws Exception {
 
 		//getHtml();

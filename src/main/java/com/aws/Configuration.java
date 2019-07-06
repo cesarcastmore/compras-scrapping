@@ -63,12 +63,12 @@ public  class Configuration {
             }else if(cadena.equals("soriana")){
 
                 Soriana soriana = new Soriana();
-                res = soriana.search(search, page.intValue());
+                res = soriana.search(search);
 
             }else if(cadena.equals("liverpool")){
 
                 Liverpool liverpool = new Liverpool();
-                res = liverpool.search(search, page.intValue());
+                res = liverpool.search(search, 1);
 
             }else if(cadena.equals("sears")){
 
@@ -143,7 +143,7 @@ public  class Configuration {
             }else if(cadena.equals("alsuper")){
 
                 AlSuper pd = new AlSuper();
-                res = pd.search(search, page.intValue());
+                res = pd.search(search);
 
             }else if(cadena.equals("officemax")){
 
@@ -208,7 +208,7 @@ public  class Configuration {
                 JSONObject item= (JSONObject) results.get(i);
                 item.put("value", cadena);
 
-                if(i == results.size() - 1){
+                if(i == results.size() - 1 ){
                     item.put("end", true);
                 }
                 this.fire.insert(uuid, item);
@@ -217,7 +217,6 @@ public  class Configuration {
 
 
             res.put("search", search);
-            res.put("page", page.intValue());
 
 
 
