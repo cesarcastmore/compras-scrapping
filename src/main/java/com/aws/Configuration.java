@@ -16,6 +16,9 @@ import com.amazonaws.services.lambda.runtime.Context;
 import com.supermarket.*;
 import com.util.FireStoreClient;
 
+import java.util.Map;
+import java.util.HashMap;
+
 public  class Configuration {
 
     public FireStoreClient fire;
@@ -200,6 +203,11 @@ public  class Configuration {
                 Elektra ek= new Elektra();
                 res = ek.search(search, page.intValue());
 
+            }else if(cadena.equals("parisina")){
+                
+                Parisina par= new Parisina();
+                res = par.search(search);
+
             }
 
             JSONArray results= (JSONArray) res.get("results");
@@ -217,10 +225,6 @@ public  class Configuration {
 
 
             res.put("search", search);
-
-
-
-
 
 
             outputStream.write(res.toJSONString().getBytes(Charset.forName("UTF-8")));

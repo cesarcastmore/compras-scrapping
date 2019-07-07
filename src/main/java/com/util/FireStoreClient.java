@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Date;
 
 
 import org.json.simple.JSONArray;
@@ -62,6 +63,7 @@ import org.json.simple.parser.JSONParser;
 		data.put("cadena", (String) item.get("cadena") );
 		data.put("imagen", (String) item.get("imagen") );
 		data.put("value", (String) item.get("value") );
+		data.put("created_at", new Date().getTime());
 
 		if(item.containsKey("end")){
 			data.put("end", (boolean) item.get("end") );
